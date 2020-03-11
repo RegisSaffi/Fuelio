@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+              android:padding="30dp"
+                android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:tint="#6AFFFFFF"
+                            android:src="@drawable/icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="26sp"
+                            android:text="Fuelio app"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_marginTop="7dp"
+                            android:textAlignment="center"
+                            android:text="Get Petrol station and garage wherever you are."
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    android:layout_height="wrap_content">
+
+                    <mehdi.sakout.fancybuttons.FancyButton
+                        android:id="@+id/start"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="45dp"
+                        app:fb_borderColor="@color/colorPrimaryDark"
+                        app:fb_borderWidth="2dp"
+                        app:fb_defaultColor="@color/colorPrimaryDark"
+                        app:fb_focusColor="@color/colorTransparentPrimary"
+                        app:fb_radius="7dp"
+                        app:fb_text="Get started"
+                        app:fb_textColor="@color/colorWhite" />
+
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+
+
+
+</LinearLayout>

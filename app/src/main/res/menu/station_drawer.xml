@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_services"
+            android:icon="@drawable/ic_subject_black_24dp"
+            android:title="Services" />
+        <item
+            android:id="@+id/nav_edit"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="Edit station" />
+
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/ic_insert_chart_black_24dp"
+            android:title="Reports" />
+
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            android:title="Profile" />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_lock_outline_black_24dp"
+                android:title="Logout" />
+
+        </menu>
+    </item>
+
+</menu>

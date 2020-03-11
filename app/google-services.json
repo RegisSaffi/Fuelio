@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "584092269733",
+    "firebase_url": "https://fuelio-1f03f.firebaseio.com",
+    "project_id": "fuelio-1f03f",
+    "storage_bucket": "fuelio-1f03f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584092269733:android:7ec0e3a96bdd73bf06e14c",
+        "android_client_info": {
+          "package_name": "com.fuelio.fuelio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584092269733-aobmgs2fqs8tlsr1j2vcnulnopo8b5vf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fuelio.fuelio",
+            "certificate_hash": "3d3cd27ec3e05f6c60c4e7216aa50d71fd8f92f2"
+          }
+        },
+        {
+          "client_id": "584092269733-fbk5336o0ra568recua7qm7eakog1u9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCraV6QQWO6VXMAftJtcMIWUb22jkqhSNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584092269733-fbk5336o0ra568recua7qm7eakog1u9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

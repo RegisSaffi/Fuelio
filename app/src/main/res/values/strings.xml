@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">Fuelio</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_main2">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Fuelio</string>
+    <string name="nav_header_subtitle">Fuelio.rw</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Profile</string>
+    <string name="menu_slideshow">Reports</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Logout</string>
+
+    <string-array name="issues">
+        <item>Worn Brake Pads</item>
+        <item>Excessive Oil Consumption</item>
+        <item>Uneven Tire Wear</item>
+        <item>Radiator Leaks </item>
+        <item>Cracked Windshield</item>
+        <item>Emission System</item>
+        <item>Evaporative Leaks</item>
+        <item>Malfunctioning Sensors</item>
+        <item>Transmission</item>
+        <item>Transmission Fluid Leaks</item>
+        <item>Clogged Filter</item>
+        <item>Water Damage</item>
+        <item>Electrical Problems: Speakers</item>
+        <item>Lights</item>
+        <item>Dead Battery</item>
+        <item>Cosmetic Issues and Other Minor Annoyances</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>Choose station category</item>
+        <item>Station-garage</item>
+        <item>Station</item>
+        <item>Garage</item>
+    </string-array>
+
+    <string-array name="station">
+        <item>Choose service</item>
+        <item>ATM</item>
+        <item>Drugstores</item>
+        <item>Coffee Islands</item>
+        <item>Car Washes And Liquor Sale.</item>
+    </string-array>
+
+    <string-array name="all_services">
+        <item>Choose service</item>
+        <item>ATM</item>
+        <item>Drugstores</item>
+        <item>Coffee Islands</item>
+        <item>Car Washes And Liquor Sale.</item>
+        <item>Car Repairs</item>
+        <item>Mot</item>
+        <item>Air Conditioning</item>
+        <item>Batteries</item>
+        <item>Exhausts</item>
+        <item>Diagnostics</item>
+        <item>Hybrid</item>
+        <item>Car Service</item>
+        <item>Body Works</item>
+        <item>Tyres</item>
+        <item>Brakes</item>
+        <item>Clutches</item>
+        <item>Electronics</item>
+
+    </string-array>
+
+    <string-array name="garage">
+        <item>Select service</item>
+        <item>Car Repairs</item>
+        <item>Mot</item>
+        <item>Air Conditioning</item>
+        <item>Batteries</item>
+        <item>Exhausts</item>
+        <item>Diagnostics</item>
+        <item>Hybrid</item>
+        <item>Car Service</item>
+        <item>Body Works</item>
+        <item>Tyres</item>
+        <item>Brakes</item>
+        <item>Clutches</item>
+        <item>Electronics</item>
+
+    </string-array>
+
+</resources>

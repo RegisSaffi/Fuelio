@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="New vehicle"
+            android:layout_height="?attr/actionBarSize"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/model"
+                    android:layout_width="match_parent"
+                    android:hint="Model name"
+                    android:singleLine="true"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/plate"
+                    android:layout_width="match_parent"
+                    android:hint="Plate number"
+                    android:singleLine="true"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/color"
+                    android:layout_width="match_parent"
+                    android:hint="Color(Optional)"
+                    android:singleLine="true"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/save"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                app:fb_text="Save vehicle"
+                app:fb_textColor="@color/white"
+                app:fb_borderWidth="3dp"
+                app:fb_borderColor="#a4033f48"
+                app:fb_defaultColor="@color/colorPrimary"
+                app:fb_radius="25dp"
+                app:fb_focusColor="#FD002B1E"
+                android:layout_gravity="center"
+                android:layout_margin="15dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
