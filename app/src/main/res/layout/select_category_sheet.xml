@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Choose category"
+            android:layout_height="?attr/actionBarSize"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
+                android:layout_height="wrap_content">
+
+
+              <com.google.android.material.card.MaterialCardView
+                  android:id="@+id/garage_card"
+                  android:layout_width="0dp"
+                  android:clickable="true"
+                  android:layout_weight="1"
+                  android:focusable="true"
+                  android:foreground="?attr/selectableItemBackground"
+                  app:contentPadding="15dp"
+                  app:cardElevation="2dp"
+                  app:cardUseCompatPadding="true"
+                  app:cardBackgroundColor="@color/white"
+                  app:cardCornerRadius="5dp"
+                  android:layout_height="wrap_content">
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:gravity="center_vertical"
+                      android:layout_height="wrap_content">
+                      <ImageView
+                          android:layout_width="40dp"
+                          app:srcCompat="@drawable/ic_build_black_24dp"
+                          android:tint="@color/colorPrimary"
+                          android:layout_height="50dp"/>
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:text="Garage"
+                          android:layout_marginLeft="10dp"
+                          android:textStyle="bold"
+                          android:layout_height="wrap_content"/>
+                  </LinearLayout>
+
+              </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/station_card"
+                android:layout_width="0dp"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:contentPadding="15dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="40dp"
+                        app:srcCompat="@drawable/ic_local_gas_station_black_24dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_height="50dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Petrol station"
+                        android:layout_marginLeft="10dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/gstation_card"
+                android:layout_width="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:contentPadding="15dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="40dp"
+                        app:srcCompat="@drawable/ic_build_black_24dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_height="50dp"/>
+                    <ImageView
+                        android:layout_width="40dp"
+                        app:srcCompat="@drawable/ic_local_gas_station_black_24dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_marginLeft="-20dp"
+                        android:layout_height="50dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Station-garage"
+                        android:layout_marginLeft="10dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

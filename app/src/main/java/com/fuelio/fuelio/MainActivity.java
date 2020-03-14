@@ -45,6 +45,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity
     public static double latitude;
     public static double longitude;
 
+    MaterialCardView garagecard,stationCard,gStationCard;
     AlertDialog.Builder gpsDialog;
     String myPhone, myId;
     Context mContext;
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity
 
     Marker marker;
     private GoogleMap mMap;
-    AppCompatSpinner spinner;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -100,7 +101,6 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        spinner=findViewById(R.id.service);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -118,18 +118,9 @@ public class MainActivity extends AppCompatActivity
 
         getStations();
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String sel=adapterView.getSelectedItem().toString();
-               // getStationsByService(sel);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+        showSelectCategory();
 
-            }
-        });
     }
 
     @Override
@@ -220,6 +211,22 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    void showSelectCategory(){
+
+            dialog=new BottomSheetDialog(MainActivity.this);
+            View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.select_category_sheet,null);
+            dialog.setContentView(view);
+            garagecard=view.findViewById(R.id.garage_card);
+            stationCard=view.findViewById(R.id.station_card);
+            gStationCard=view.findViewById(R.id.gstation_card);
+
+            garagecard.setOnClickListener(v->dialog.cancel());
+        stationCard.setOnClickListener(v->dialog.cancel());
+        gStationCard.setOnClickListener(v->dialog.cancel());
+
+        dialog.setCancelable(false);
+            dialog.show();
+    }
 
     void showNewVehicle(){
         dialog=new BottomSheetDialog(MainActivity.this);

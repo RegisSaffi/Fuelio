@@ -415,7 +415,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 startActivity(in);
                 finish();
-
             }
         }).addOnFailureListener(e -> Toasty.error(getApplicationContext(),"Error getting your info").show()).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

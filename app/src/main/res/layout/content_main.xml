@@ -12,13 +12,6 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/service"
-            android:layout_width="match_parent"
-            android:entries="@array/category"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"/>
 
         <include layout="@layout/map"/>
     </LinearLayout>
