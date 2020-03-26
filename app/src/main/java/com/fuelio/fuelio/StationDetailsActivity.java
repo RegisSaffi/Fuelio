@@ -17,7 +17,10 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -137,6 +140,9 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
     private boolean bound = false;
 
     Toolbar toolbar;
+    String[] garageServices;
+    String[] stationServices;
+    String[] allServices;
 
     RecyclerView recyclerView2;
     reviewAdapter reviewAdapter;
@@ -167,6 +173,10 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
         API = "AIzaSyB3oJj1ebrokzm6T0nbtyBhSljHf4OkBHs";
 
         Bundle bundle = getIntent().getExtras();
+
+        garageServices=getResources().getStringArray(R.array.garage);
+        stationServices=getResources().getStringArray(R.array.station);
+        allServices=getResources().getStringArray(R.array.all_services);
 
         originLatitude = bundle.getDouble("latitude", latitude);
         originLongitude = bundle.getDouble("longitude", longitude);
@@ -494,15 +504,20 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                 String description = (String) stationDocument.get("description");
                 String email= (String) stationDocument.get("email");
                 String address= (String) stationDocument.get("address");
+                String cat= (String) stationDocument.get("category");
 
                 Map<String, Double> loc1 = (Map<String, Double>) stationDocument.get("location");
                 LatLng loc = new LatLng(loc1.get("latitude"), loc1.get("longitude"));
 
                 List<String> days = (List<String>) stationDocument.get("days");
+List<String> services=new ArrayList<>();
+if(stationDocument.contains("services")){
+
+}
 
 
                 toolbar.setSubtitle(address);
-                nameTv.setText(name);
+                nameTv.setText(name+"("+cat+")");
                 webTv.setText(website);
                 descTv.setText(description);
                 phoneTv.setText(phone);
@@ -510,7 +525,7 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                destinationLatitude = loc.latitude;
                 destinationLongitude = loc.longitude;
 
-
+                toolbar.setSubtitle(cat);
                 String dirUrl = directionUrl + "origin=" + originLatitude + "," + originLongitude + "&destination=" + destinationLatitude + "," + destinationLongitude + "&key=" + API;
 
                 Log.w("URL: ",dirUrl);
@@ -518,6 +533,20 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                 getDirection gd = new getDirection();
                 gd.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, dirUrl);
 
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+                String[] myServices;
+                if(cat.equals("Station")){
+                    myServices=stationServices;
+                    adapter.addAll(stationServices);
+                }else if(cat.equals("Garage")){
+                    myServices=garageServices;
+                    adapter.addAll(garageServices);
+                }else{
+                    myServices=allServices;
+                    adapter.addAll(allServices);
+                }
+
+              spinner.setAdapter(adapter);
                 progressDialog.cancel();
 
             } else {

@@ -12,6 +12,13 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:indeterminate="true"
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_height="wrap_content"/>
 
         <include layout="@layout/map"/>
     </LinearLayout>

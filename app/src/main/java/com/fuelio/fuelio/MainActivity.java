@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity
     public static double latitude;
     public static double longitude;
 
+    String selectedCategory="station";
+
     MaterialCardView garagecard,stationCard,gStationCard;
     AlertDialog.Builder gpsDialog;
     String myPhone, myId;
@@ -115,10 +117,6 @@ public class MainActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
         mContext=this;
-
-        getStations();
-
-
         showSelectCategory();
 
     }
@@ -134,14 +132,16 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void getStations() {
+    public void getStations(String cate) {
+
+        findViewById(R.id.progress).setVisibility(View.VISIBLE);
         String myId = new PrefManager(this).getId();
         CollectionReference reference = FirebaseFirestore.getInstance().collection("stations");
 
-        reference.get().addOnSuccessListener(queryDocumentSnapshots -> {
+        reference.whereEqualTo("category",cate).get().addOnSuccessListener(queryDocumentSnapshots -> {
 
             if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
-
+                findViewById(R.id.progress).setVisibility(View.GONE);
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
                     String name = (String) document.get("name");
@@ -165,47 +165,8 @@ public class MainActivity extends AppCompatActivity
                 }
 
             }else{
-                Toasty.info(mContext,"No stations available",Toasty.LENGTH_LONG).show();
-            }
-
-        });
-    }
-
-
-    public void getStationsByService(String sel) {
-        String myId = new PrefManager(this).getId();
-        CollectionReference reference = FirebaseFirestore.getInstance().collection("stations");
-        Query query=reference.document().collection("services").whereEqualTo("title",sel);
-
-       query.get().addOnSuccessListener(queryDocumentSnapshots -> {
-
-            if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
-
-                mMap.clear();
-                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-
-                    String name = (String) document.get("name");
-                    String address = (String) document.get("address");
-
-                    String id = (String) document.getId();
-
-                    Map<String, Double> loc1 = (Map<String, Double>) document.get("location");
-                    LatLng loc = new LatLng(loc1.get("latitude"), loc1.get("longitude"));
-
-                    LatLng latLng = new LatLng(loc.latitude, loc.longitude);
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng);
-
-                    markerOptions.title(name);
-                    markerOptions.snippet(id);
-
-                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
-                    Marker stationMarker = mMap.addMarker(markerOptions);
-
-                }
-
-            }else{
-                Toasty.info(mContext,"No stations found for your search",Toasty.LENGTH_LONG).show();
+                findViewById(R.id.progress).setVisibility(View.GONE);
+                Toasty.info(mContext,"No stations available in this category yet.",Toasty.LENGTH_LONG).show();
             }
 
         });
@@ -220,9 +181,23 @@ public class MainActivity extends AppCompatActivity
             stationCard=view.findViewById(R.id.station_card);
             gStationCard=view.findViewById(R.id.gstation_card);
 
-            garagecard.setOnClickListener(v->dialog.cancel());
-        stationCard.setOnClickListener(v->dialog.cancel());
-        gStationCard.setOnClickListener(v->dialog.cancel());
+            garagecard.setOnClickListener(v-> {
+                selectedCategory="Garage";
+                getStations("Garage");
+
+                dialog.cancel();
+            });
+        stationCard.setOnClickListener(v-> {
+            selectedCategory="Station";
+            getStations("Station");
+
+            dialog.cancel();
+        });
+        gStationCard.setOnClickListener(v-> {
+            selectedCategory="Station-garage";
+            getStations("Station-garage");
+            dialog.cancel();
+        });
 
         dialog.setCancelable(false);
             dialog.show();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fuelio</string>
+    <string name="app_name">Fuelio-garage</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
     <string name="title_activity_main2">Home</string>
@@ -43,7 +43,7 @@
     </string-array>
 
     <string-array name="station">
-        <item>Choose service</item>
+        <item>Choose other service</item>
         <item>ATM</item>
         <item>Drugstores</item>
         <item>Coffee Islands</item>
@@ -51,7 +51,7 @@
     </string-array>
 
     <string-array name="all_services">
-        <item>Choose service</item>
+        <item>Choose other service</item>
         <item>ATM</item>
         <item>Drugstores</item>
         <item>Coffee Islands</item>
