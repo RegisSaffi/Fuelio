@@ -37,9 +37,9 @@
 
     <string-array name="category">
         <item>Choose station category</item>
-        <item>Station-garage</item>
-        <item>Station</item>
-        <item>Garage</item>
+        <item>station-garage</item>
+        <item>station</item>
+        <item>garage</item>
     </string-array>
 
     <string-array name="station">

@@ -182,20 +182,20 @@ public class MainActivity extends AppCompatActivity
             gStationCard=view.findViewById(R.id.gstation_card);
 
             garagecard.setOnClickListener(v-> {
-                selectedCategory="Garage";
-                getStations("Garage");
+                selectedCategory="garage";
+                getStations("garage");
 
                 dialog.cancel();
             });
         stationCard.setOnClickListener(v-> {
-            selectedCategory="Station";
-            getStations("Station");
+            selectedCategory="station";
+            getStations("station");
 
             dialog.cancel();
         });
         gStationCard.setOnClickListener(v-> {
-            selectedCategory="Station-garage";
-            getStations("Station-garage");
+            selectedCategory="station-garage";
+            getStations("station-garage");
             dialog.cancel();
         });
 

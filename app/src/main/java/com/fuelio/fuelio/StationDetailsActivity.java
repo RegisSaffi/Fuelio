@@ -535,10 +535,10 @@ if(stationDocument.contains("services")){
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
                 String[] myServices;
-                if(cat.equals("Station")){
+                if(cat.equals("station")){
                     myServices=stationServices;
                     adapter.addAll(stationServices);
-                }else if(cat.equals("Garage")){
+                }else if(cat.equals("garage")){
                     myServices=garageServices;
                     adapter.addAll(garageServices);
                 }else{
