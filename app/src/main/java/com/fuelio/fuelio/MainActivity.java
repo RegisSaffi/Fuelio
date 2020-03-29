@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +51,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -132,8 +135,53 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void getStations(String cate) {
+    public void listenAccepted() {
 
+        CollectionReference ref = FirebaseFirestore.getInstance().collection("requests");
+        Query refQuery = ref.orderBy("modified", Query.Direction.ASCENDING);
+
+        refQuery.get().addOnSuccessListener(queryDocumentSnapshots -> {
+
+            if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+
+                DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
+                String status = document.getString("status");
+
+                DocumentChange dc = queryDocumentSnapshots.getDocumentChanges().get(0);
+                switch (dc.getType()) {
+                    case ADDED:
+
+                        if (status.equals("pending")) {
+                            startActivity(new Intent(MainActivity.this, PendingActivity.class));
+                            finish();
+                        } else if (status.equals("accepted")) {
+                            startActivity(new Intent(MainActivity.this, PendingActivity.class));
+                            finish();
+                        }
+                        Log.d("TAG", "New: " + dc.getDocument().getData());
+                        break;
+                    case MODIFIED:
+                        Log.d("TAg", "Modified: " + dc.getDocument().getData());
+                        if (status.equals("pending")) {
+                            startActivity(new Intent(MainActivity.this, PendingActivity.class));
+                            finish();
+                        } else if (status.equals("accepted")) {
+                            startActivity(new Intent(MainActivity.this, PendingActivity.class));
+                            finish();
+                        }
+                        break;
+                    case REMOVED:
+                        Log.d("Tag", "Removed: " + dc.getDocument().getData());
+                        break;
+                }
+
+
+            }
+        });
+    }
+
+
+    public void getStations(String cate) {
         findViewById(R.id.progress).setVisibility(View.VISIBLE);
         String myId = new PrefManager(this).getId();
         CollectionReference reference = FirebaseFirestore.getInstance().collection("stations");
@@ -260,7 +308,7 @@ public class MainActivity extends AppCompatActivity
 
         if (!isLocationEnabled(this)) {
             showSettingsAlert();
-        }
+        }listenAccepted();
 
         super.onResume();
     }

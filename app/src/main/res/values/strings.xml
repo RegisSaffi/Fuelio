@@ -5,8 +5,8 @@
     <string name="title_activity_main2">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Fuelio</string>
-    <string name="nav_header_subtitle">Fuelio.rw</string>
+    <string name="nav_header_title">Fuelio-garage</string>
+    <string name="nav_header_subtitle">Fuelio-garage app</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="menu_home">Home</string>

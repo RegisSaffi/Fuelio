@@ -72,6 +72,7 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.maps.model.Vehicle;
 
 import org.imperiumlabs.geofirestore.GeoFirestore;
 import org.imperiumlabs.geofirestore.GeoQuery;
@@ -148,6 +149,8 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
     reviewAdapter reviewAdapter;
     List<com.fuelio.fuelio.models.review> reviews;
     TextView info;
+
+    vehicle myVehicle;
 
     public static Boolean isLocationEnabled(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -276,6 +279,7 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
             for(int a=0;a<vehicles.size();a++){
                 if(vehicles.get(a).getSelected()){
                     selected=vehicles.get(a);
+                    myVehicle=selected;
                 }
             }
 
@@ -290,9 +294,10 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                 return;
             }
 
+
             new AlertDialog.Builder(StationDetailsActivity.this)
                     .setTitle("Send request")
-                    .setMessage("Would you like to request your vehicle to be repaired or you are out of gaz?")
+                    .setMessage("Would you like to send this request?")
                     .setNegativeButton("Cancel", (dialogInterface, i) -> {
 
                     }).setPositiveButton("Request", (dialogInterface, i) -> {
@@ -303,6 +308,7 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                         request.put("requester_name", new PrefManager(getApplicationContext()).getName());
                         request.put("requester_location", new LatLng(originLatitude, originLongitude));
                         request.put("time", new Date());
+                        request.put("model",myVehicle.name);
                         request.put("duration",timeTv.getText().toString());
                         request.put("distance",distanceTv.getText().toString());
                         request.put("station_name", stationDocument.getString("name"));
@@ -577,7 +583,6 @@ if(stationDocument.contains("services")){
 
         }
 
-   
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new Builder(this)
@@ -616,7 +621,6 @@ if(stationDocument.contains("services")){
 
         latitude = mLastLocation.getLatitude();
         longitude = mLastLocation.getLongitude();
-
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();

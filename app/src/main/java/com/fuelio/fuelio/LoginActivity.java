@@ -166,15 +166,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toasty.error(getApplicationContext(), "Please enter a valid Phone", Toasty.LENGTH_LONG).show();
             }});
 
-        etOTP.setPinViewEventListener((pinview1, b) -> {
-            //Toasty.makeText(loginPassWord.this, ""+pinview.getValue(),Toasty.LENGTH_LONG).show();
-            progress = ProgressDialog.show(LoginActivity.this, "", "Verifying...", false, false);
-
-            otp= etOTP.getValue();
-            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, otp);
-
-            SigninWithPhone(credential);
-        });
 
         btnSignIn.setOnClickListener(v -> {
 
@@ -363,7 +354,7 @@ public class LoginActivity extends AppCompatActivity {
     //function to login
     public void loginAccount()
     {
-        phoneNumber=ccp.getFullNumber();
+        phoneNumber=ccp.getFullNumber().trim();
 
         progress=ProgressDialog.show(LoginActivity.this,"","Checking user...",false,false);
 
@@ -394,6 +385,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 String tp=(String)doc.get(0).get("type");
 
+                if (tp != null && tp.equals("station")) {
+                    String st = (String) doc.get(0).get("station");
+
+                    new PrefManager(getApplicationContext()).setRegistrationtoken(st);
+                    new PrefManager(getApplicationContext()).setType("station");
+                }
+
                 new PrefManager(getApplicationContext()).setPhone(phoneNumber);
                 new PrefManager(getApplicationContext()).saveUser(id,fnm+" "+lnm);
                 new PrefManager(getApplicationContext()).setFirstTimeLaunch(false);
@@ -401,7 +399,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent in = null;
                 if (tp != null) {
-                    if(tp.equals("driver")){
+                    if(tp.equals("station")){
                         in=new Intent(getApplicationContext(), StationActivity.class);
                     }else {
                         in = new Intent(getApplicationContext(), MainActivity.class);

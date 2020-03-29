@@ -180,7 +180,7 @@
                     app:fb_defaultColor="@color/colorPrimary"
                     app:fb_focusColor="#FD002B1E"
                     app:fb_radius="3dp"
-                    app:fb_text="Request ride"
+                    app:fb_text="Request service"
                     app:fb_textColor="@color/white" />
 
             </LinearLayout>

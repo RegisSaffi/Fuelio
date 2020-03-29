@@ -52,6 +52,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
@@ -208,6 +209,22 @@ public class StationActivity extends AppCompatActivity
         });
 
 listenRequests();
+getStationDetails();
+    }
+
+   void getStationDetails(){
+
+        String stId=new PrefManager(this).getRegistrationToken();
+        FirebaseFirestore.getInstance().collection("stations").document(stId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                String name=documentSnapshot.getString("name");
+                new PrefManager(getApplicationContext()).setAbout(name);
+                setTitle(name);
+            }
+        });
+
     }
 
     public void listenRequests() {

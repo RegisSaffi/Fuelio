@@ -9,10 +9,6 @@
             android:id="@+id/nav_services"
             android:icon="@drawable/ic_subject_black_24dp"
             android:title="Services" />
-        <item
-            android:id="@+id/nav_edit"
-            android:icon="@drawable/ic_edit_black_24dp"
-            android:title="Edit station" />
 
         <item
             android:id="@+id/nav_reports"

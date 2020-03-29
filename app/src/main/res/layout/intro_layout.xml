@@ -54,7 +54,7 @@
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             android:textSize="26sp"
-                            android:text="Fuelio app"
+                            android:text="Fuelio-garage app"
                             android:layout_height="wrap_content" />
 
                         <TextView
