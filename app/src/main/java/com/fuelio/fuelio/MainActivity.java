@@ -122,6 +122,10 @@ public class MainActivity extends AppCompatActivity
         mContext=this;
         showSelectCategory();
 
+        if(new PrefManager(this).getType().equals("admin")){
+            startActivity(new Intent(this,AdminActivity.class));
+            finish();
+        }
 
 
     }

@@ -43,7 +43,7 @@
     </string-array>
 
     <string-array name="station">
-        <item>Choose other service</item>
+
         <item>Fueling</item>
         <item>ATM</item>
         <item>Drugstores</item>
@@ -52,7 +52,7 @@
     </string-array>
 
     <string-array name="all_services">
-        <item>Choose other service</item>
+
         <item>ATM</item>
         <item>Drugstores</item>
         <item>Coffee Islands</item>
@@ -74,7 +74,7 @@
     </string-array>
 
     <string-array name="garage">
-        <item>Select service</item>
+
         <item>Car Repairs</item>
         <item>Mot</item>
         <item>Air Conditioning</item>

@@ -17,10 +17,12 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.SpinnerAdapter;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatRatingBar;
-import androidx.appcompat.widget.AppCompatSpinner;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -129,13 +131,19 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
 
     FancyButton requestBtn,preButton;
     DocumentSnapshot stationDocument;
-    AppCompatSpinner spinner;
+
     TextInputEditText more;
 
     RecyclerView recyclerView;
     vehicleAdapter cardBusAdapter;
     com.fuelio.fuelio.models.vehicle vehicle;
     List<vehicle> vehicles;
+
+    RecyclerView recyclerView3;
+    vehicleAdapter cardBusAdapter3;
+    com.fuelio.fuelio.models.vehicle vehicle3;
+    List<vehicle> vehicles3;
+
     ImageView review;
 
     private boolean bound = false;
@@ -202,7 +210,7 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
         descTv=findViewById(R.id.tvDesc);
         phoneTv=findViewById(R.id.tvPhone);
         more=findViewById(R.id.more);
-        spinner=findViewById(R.id.issue);
+
         review=findViewById(R.id.review);
         review.setOnClickListener(v->showAddReview());
 
@@ -220,6 +228,7 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
 
 
         vehicles = new ArrayList<>();
+        vehicles3 = new ArrayList<>();
         reviews=new ArrayList<>();
 
         info=findViewById(R.id.info);
@@ -228,6 +237,11 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
         cardBusAdapter = new vehicleAdapter(vehicles, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(cardBusAdapter);
+
+        recyclerView3 = findViewById(R.id.my_recycler_view3);
+        cardBusAdapter3 = new vehicleAdapter(vehicles3, this);
+        recyclerView3.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView3.setAdapter(cardBusAdapter3);
 
         recyclerView2 = findViewById(R.id.my_recycler_view2);
         reviewAdapter = new reviewAdapter(reviews, this);
@@ -275,6 +289,7 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
         requestBtn.setOnClickListener(view -> {
 
             vehicle selected = null;
+            vehicle selectedService = null;
 
             for(int a=0;a<vehicles.size();a++){
                 if(vehicles.get(a).getSelected()){
@@ -283,18 +298,30 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                 }
             }
 
+            for(int a=0;a<vehicles3.size();a++){
+                if(vehicles3.get(a).getSelected()){
+                    selected=vehicles3.get(a);
+                    selectedService=selected;
+                }
+            }
+
             if(selected==null){
                 Toasty.error(getApplicationContext(),"Select one vehicle to continue").show();
+                return;
+            }
+            if(selectedService==null){
+                Toasty.error(getApplicationContext(),"Select one service to continue").show();
                 return;
             }else if(more.getText().toString().equals("")){
                 Toasty.error(getApplicationContext(),"Add more description for your issue").show();
                 return;
-            }else if(spinner.getSelectedItem().toString().equals("Choose service")){
-                Toasty.error(getApplicationContext(),"Choose the service you want").show();
-                return;
             }
 
 
+            Map<String,Object> service=new HashMap<>();
+
+
+            com.fuelio.fuelio.models.vehicle finalSelectedService = selectedService;
             new AlertDialog.Builder(StationDetailsActivity.this)
                     .setTitle("Send request")
                     .setMessage("Would you like to send this request?")
@@ -314,7 +341,8 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                         request.put("station_name", stationDocument.getString("name"));
                         request.put("station_id", stationDocument.getId());
                         request.put("modified", false);
-                        request.put("issue",spinner.getSelectedItem().toString());
+                        request.put("amount",finalSelectedService.getPlate());
+                       request.put("issue", finalSelectedService.getName());
                         request.put("description",more.getText().toString());
                         request.put("status", "pending");
 
@@ -356,7 +384,37 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
 
             }
         }));
+
+        /////////////////
+
+
+        recyclerView3.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int pos) {
+
+                for(int a=0;a<vehicles3.size();a++){
+                    if(a!=pos) {
+                        vehicle vehicle1 = vehicles3.get(pos);
+                        vehicle1.setSelected(false);
+                    }
+                }
+
+                vehicle vehicle =vehicles3.get(pos);
+                vehicle.setSelected(!vehicle.getSelected());
+                vehicles3.set(pos,vehicle);
+                cardBusAdapter3.notifyDataSetChanged();
+            }
+            @Override
+            public void onLongClick(View view, int pos) {
+
+            }
+        }));
+
     }
+
+
+
+
 
     void toggleBottomSheet() {
 
@@ -552,7 +610,18 @@ if(stationDocument.contains("services")){
                     adapter.addAll(allServices);
                 }
 
-              spinner.setAdapter(adapter);
+
+                for(String s:myServices){
+
+                    vehicle3=new vehicle(s,"2000","12");
+                    vehicle3.setIsSmall(true);
+                    vehicle3.setIsService(true);
+                    vehicles3.add(vehicle3);
+
+
+                }
+                cardBusAdapter3.notifyDataSetChanged();
+
                 progressDialog.cancel();
 
             } else {
@@ -810,7 +879,7 @@ if(stationDocument.contains("services")){
         return strAdd;
     }
 
-  
+
 
     public class getDirection extends AsyncTask<String, Void, String> {
         String server_response = "none";
@@ -863,4 +932,7 @@ if(stationDocument.contains("services")){
             }
         }
     }
+
+
+
 }

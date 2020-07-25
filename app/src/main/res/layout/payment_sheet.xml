@@ -30,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:hint="Amount"
                     android:inputType="number"
+                    android:enabled="false"
                     android:singleLine="true"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>

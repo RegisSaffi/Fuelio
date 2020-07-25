@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -61,6 +62,9 @@ public class vehicleAdapter extends RecyclerView.Adapter<vehicleAdapter.ViewHold
         Viewholder.plate.setText(vehicle1.getPlate());
         Viewholder.name.setText(vehicle1.getName());
 
+        if(vehicle1.getIsService()){
+            Viewholder.car.setVisibility(View.GONE);
+        }
         if(vehicle1.getIsSmall()){
 
             if(vehicle1.getSelected()){
@@ -83,7 +87,7 @@ public class vehicleAdapter extends RecyclerView.Adapter<vehicleAdapter.ViewHold
 
         TextView name,plate;
         LinearLayout parent;
-
+        ImageView car;
 
 
         public ViewHolder(View itemView) {
@@ -93,6 +97,8 @@ public class vehicleAdapter extends RecyclerView.Adapter<vehicleAdapter.ViewHold
             parent=itemView.findViewById(R.id.parent);
             plate=itemView.findViewById(R.id.tvPlate);
             name=  itemView.findViewById(R.id.tvName);
+            car=itemView.findViewById(R.id.car);
+
 
         }
     }

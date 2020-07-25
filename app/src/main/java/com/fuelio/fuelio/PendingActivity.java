@@ -47,6 +47,7 @@ public class PendingActivity extends AppCompatActivity {
     FancyButton cancel;
     ProgressBar progressBar;
 
+    String servicePrice="0.00";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,12 +100,14 @@ public class PendingActivity extends AppCompatActivity {
                 String distance = document.getString("distance");
                 String duration = document.getString("duration");
 
+                servicePrice = document.getString("amount");
+
                 timeTv.setText(duration);
                 nameTv.setText(name);
                 modelTv.setText(model);
                 //  toolbar.setSubtitle(time.toDate().toString().substring(0,16));
                 distanceTv.setText(distance);
-                costTv.setText("0.00");
+                costTv.setText(servicePrice);
                 issueTv.setText(issue);
 
                 progressBar.setVisibility(View.GONE);
@@ -147,6 +150,8 @@ public class PendingActivity extends AppCompatActivity {
                     amount=dialog.findViewById(R.id.amount);
                     phone=dialog.findViewById(R.id.phone);
                     pay=dialog.findViewById(R.id.pay);
+
+                    amount.setText(servicePrice);
 
                     phone.setText(new PrefManager(PendingActivity.this).getPhone());
 
@@ -278,10 +283,12 @@ public class PendingActivity extends AppCompatActivity {
 
 
                         }catch (Exception e){
+                            Toasty.error(PendingActivity.this,"Received data error").show();
+
                             e.printStackTrace();
                         }
 
-                        //Toasty.info(PendingActivity.this,response.toString()).show();
+                       // Toasty.info(PendingActivity.this,response.toString()).show();
                     }
                 }, new Response.ErrorListener() {
             @Override

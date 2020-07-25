@@ -9,6 +9,8 @@ public class vehicle
     boolean selected=false;
     boolean isSmall=false;
 
+    boolean isService=false;
+
     public vehicle(){}
 
     public vehicle(String name, String plate,String id){
@@ -24,6 +26,9 @@ public class vehicle
 
     public void setIsSmall(boolean isSmall){this.isSmall=isSmall;}
     public boolean getIsSmall(){return isSmall;}
+
+    public void setIsService(boolean isService){this.isService=isService;}
+    public boolean getIsService(){return isService;}
 
     public String getName()
     {
