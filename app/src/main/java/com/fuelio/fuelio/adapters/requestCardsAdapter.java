@@ -55,12 +55,13 @@ public class requestCardsAdapter extends RecyclerView.Adapter<requestCardsAdapte
             Viewholder.statusImg.setImageDrawable(VectorDrawableCompat.create(context.getResources(),R.drawable.ic_access_time_black_24dp,context.getTheme()));
         }else if(requestCard1.getStatus().equals("accepted")){
             Viewholder.statusImg.setImageDrawable(VectorDrawableCompat.create(context.getResources(),R.drawable.ic_check_black_24dp,context.getTheme()));
-        }else if(requestCard1.getStatus().equals("confirmed")){
+        }else if(requestCard1.getStatus().equals("completed")){
             Viewholder.statusImg.setImageDrawable(VectorDrawableCompat.create(context.getResources(),R.drawable.ic_check_circle_black_24dp,context.getTheme()));
+        }else if(requestCard1.getStatus().equals("paid")){
+            Viewholder.statusImg.setImageDrawable(VectorDrawableCompat.create(context.getResources(),R.drawable.ic_done_all_black_24dp,context.getTheme()));
         }else{
             Viewholder.statusImg.setImageDrawable(VectorDrawableCompat.create(context.getResources(),R.drawable.ic_report_problem_black_24dp,context.getTheme()));
         }
-
     }
 
     @Override

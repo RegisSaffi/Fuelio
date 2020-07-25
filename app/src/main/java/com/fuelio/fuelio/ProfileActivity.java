@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvPhone = findViewById(R.id.tvPhone);
 
         tvName.setText(new PrefManager(this).getName());
-        tvEmail.setText(new PrefManager(this).getName());
+        tvEmail.setText(new PrefManager(this).getAbout());
         tvPhone.setText(new PrefManager(this).getPhone());
 
         nameTv.setText(new PrefManager(this).getName());

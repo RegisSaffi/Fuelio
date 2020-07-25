@@ -20,12 +20,13 @@ public class Splash extends AppCompatActivity {
         setTitle("");
 
         type=new PrefManager(this).getType();
-       // Toast.makeText(this, type, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, type, Toast.LENGTH_SHORT).show();
 
         if (!new PrefManager(this).isFirstTimeLaunch()) {
             new CountDownTimer(2000, 1000) {
                 @Override
                 public void onTick(long l) {
+
 
                 }
                 @Override

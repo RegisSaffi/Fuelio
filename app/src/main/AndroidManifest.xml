@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -21,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".AdminActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -34,25 +34,24 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
+
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/leku_searchable" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-        <activity android:name="com.fuelio.fuelio.Splash">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.fuelio.fuelio.IntroActivity" />
-        <activity android:name="com.fuelio.fuelio.LoginActivity" />
-        <activity android:name="com.fuelio.fuelio.MainActivity" />
-
+        <activity android:name=".IntroActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".StationActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProfileActivity" />
@@ -62,6 +61,11 @@
         <activity android:name=".ServicesActivity" />
         <activity android:name=".RequestsActivity" />
         <activity android:name=".PendingActivity" />
+        <activity android:name=".AllProvidersActivity" />
+        <activity android:name=".AllUsersActivity" />
+        <activity android:name=".StationPendingActivity" />
+        <activity android:name=".StationAcceptedActivity" />
+        <activity android:name=".StationCompleteActivity" />
     </application>
 
 </manifest>

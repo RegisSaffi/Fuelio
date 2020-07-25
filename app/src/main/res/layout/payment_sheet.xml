@@ -29,6 +29,7 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:hint="Amount"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -41,6 +42,7 @@
                     android:layout_width="match_parent"
                     android:hint="Phone number"
                     android:singleLine="true"
+                    android:inputType="phone"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 

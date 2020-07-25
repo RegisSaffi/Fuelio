@@ -13,6 +13,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -44,7 +45,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'com.github.DavidProdinger:weekdays-selector:1.1.0'
-    implementation ('com.schibstedspain.android:leku:6.4.0') {
+    implementation('com.schibstedspain.android:leku:6.4.0') {
         exclude group: 'com.google.android.gms'
         exclude group: 'androidx.appcompat'
     }

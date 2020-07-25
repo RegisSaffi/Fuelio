@@ -129,6 +129,7 @@ public class StationActivity extends AppCompatActivity
         TextView names = vvv.findViewById(R.id.names);
         online=findViewById(R.id.online);
 
+        new PrefManager(getApplicationContext()).setType("station");
         online.setOnCheckedChangeListener((compoundButton, b) -> toggleOnline(b));
 
         number.setText(new PrefManager(this).getPhone());
@@ -179,6 +180,16 @@ public class StationActivity extends AppCompatActivity
 
         }
 
+        pendingLayout.setOnClickListener(v->{
+
+                startActivity( new Intent(StationActivity.this,StationPendingActivity.class));
+
+        });
+
+        waitingLayout.setOnClickListener(v->{
+            startActivity( new Intent(StationActivity.this,StationAcceptedActivity.class));
+        });
+
 
         setTitle(new PrefManager(getApplicationContext()).getAbout());
         toolbar.setSubtitle(new PrefManager(this).getName());
@@ -210,6 +221,11 @@ public class StationActivity extends AppCompatActivity
 
 listenRequests();
 getStationDetails();
+
+if(new PrefManager(this).getType().equals("admin")){
+    startActivity(new Intent(this,AdminActivity.class));
+    finish();
+}
     }
 
    void getStationDetails(){
@@ -235,9 +251,15 @@ getStationDetails();
         String st=new PrefManager(getApplicationContext()).getRegistrationToken();
 
         String myId = new PrefManager(this).getId();
+
+                List<String> a=new ArrayList<>();
+              a.add("accepted");
+              a.add("paid");
+
+
         CollectionReference reference = FirebaseFirestore.getInstance().collection("requests");
         Query query = reference.whereEqualTo("station_id", st).whereEqualTo("status", "pending");
-        Query query2 = reference.whereEqualTo("station_id", st).whereEqualTo("status", "accepted");
+        Query query2 = reference.whereEqualTo("station_id", st).whereIn("status",a);
 
         query.addSnapshotListener((queryDocumentSnapshots, e) -> {
 
@@ -568,6 +590,15 @@ getStationDetails();
                 break;
             case R.id.nav_profile:
                 startActivity( new Intent(StationActivity.this,ProfileActivity.class));
+                break;
+            case R.id.nav_pending:
+                startActivity( new Intent(StationActivity.this,StationPendingActivity.class));
+                break;
+            case R.id.nav_accepted:
+                startActivity( new Intent(StationActivity.this,StationAcceptedActivity.class));
+                break;
+            case R.id.nav_complete:
+                startActivity( new Intent(StationActivity.this,StationCompleteActivity.class));
                 break;
             case R.id.nav_logout:
                 new AlertDialog.Builder(StationActivity.this)

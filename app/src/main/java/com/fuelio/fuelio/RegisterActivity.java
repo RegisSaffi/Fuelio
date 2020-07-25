@@ -196,7 +196,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             Toasty.success(getApplicationContext(),"Registered successfully").show();
 
-            new PrefManager(getApplicationContext()).saveUser(id.getId(),fname.getText().toString()+" "+lname.getText().toString());
+            new PrefManager(getApplicationContext()).saveUser(id.getId(),fname.getText().toString()+" "+lname.getText().toString(),isStation?"station":"user");
             new PrefManager(getApplicationContext()).setFirstTimeLaunch(false);
 
             Intent in;

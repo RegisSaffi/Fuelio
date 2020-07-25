@@ -29,10 +29,10 @@ public class PrefManager {
         editor.apply();
     }
 
-    public void saveUser(String id, String name) {
+    public void saveUser(String id, String name,String tp) {
         editor.putString("user_id", id);
         editor.putString("name", name);
-        editor.putString("type", "user");
+        editor.putString("type", tp);
         editor.apply();
     }
 

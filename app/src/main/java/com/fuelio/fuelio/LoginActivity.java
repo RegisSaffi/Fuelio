@@ -393,7 +393,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 new PrefManager(getApplicationContext()).setPhone(phoneNumber);
-                new PrefManager(getApplicationContext()).saveUser(id,fnm+" "+lnm);
+                new PrefManager(getApplicationContext()).saveUser(id,fnm+" "+lnm,tp);
                 new PrefManager(getApplicationContext()).setFirstTimeLaunch(false);
 
 

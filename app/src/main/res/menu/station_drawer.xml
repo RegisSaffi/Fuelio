@@ -10,12 +10,21 @@
             android:icon="@drawable/ic_subject_black_24dp"
             android:title="Services" />
 
+
         <item
-            android:id="@+id/nav_reports"
-            android:icon="@drawable/ic_insert_chart_black_24dp"
-            android:title="Reports" />
+            android:id="@+id/nav_pending"
+            android:icon="@drawable/ic_access_time_black_24dp"
+            android:title="Pending requests" />
 
+        <item
+            android:id="@+id/nav_accepted"
+            android:icon="@drawable/ic_check_black_24dp"
+            android:title="Accepted and Paid" />
 
+        <item
+            android:id="@+id/nav_complete"
+            android:icon="@drawable/ic_check_circle_black_24dp"
+            android:title="Completed and Rejected" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_account_box_black_24dp"

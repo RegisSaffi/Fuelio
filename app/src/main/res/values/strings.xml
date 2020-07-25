@@ -44,6 +44,7 @@
 
     <string-array name="station">
         <item>Choose other service</item>
+        <item>Fueling</item>
         <item>ATM</item>
         <item>Drugstores</item>
         <item>Coffee Islands</item>

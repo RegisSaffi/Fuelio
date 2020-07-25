@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="7dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    app:cardUseCompatPadding="false"
+    app:cardElevation="1dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1.8"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textSize="18sp"
+                    android:text="date here"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="type"
+                    android:maxLines="2"
+                    />
+
+
+            </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:layout_weight="0.9"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:gravity="start"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_marginEnd="20dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="To:"-->
+<!--            android:maxLines="2"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvTo"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:maxLines="1"-->
+<!--            android:textSize="18sp"-->
+<!--            android:text="From here"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:textStyle="bold"/>-->
+<!--    </LinearLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_weight="0.2"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginEnd="20dp">
+
+        <ImageView
+            android:id="@+id/statusImg"
+            android:layout_width="20dp"
+            app:srcCompat="@drawable/ic_access_time_black_24dp"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:text="address here"
+                android:maxLines="2"
+                android:textSize="15sp"
+               android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

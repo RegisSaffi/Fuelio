@@ -122,6 +122,8 @@ public class MainActivity extends AppCompatActivity
         mContext=this;
         showSelectCategory();
 
+
+
     }
 
     @Override
@@ -141,6 +143,8 @@ public class MainActivity extends AppCompatActivity
         Query refQuery = ref.orderBy("modified", Query.Direction.ASCENDING);
 
         refQuery.get().addOnSuccessListener(queryDocumentSnapshots -> {
+
+           // Toasty.info(getApplicationContext(),"Count: "+queryDocumentSnapshots.getDocuments().size()).show();
 
             if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
 

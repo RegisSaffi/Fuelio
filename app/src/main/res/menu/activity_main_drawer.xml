@@ -20,10 +20,6 @@
             android:title="My vehicles" />
 
         <item
-            android:id="@+id/nav_reminders"
-            android:icon="@drawable/ic_directions_car_black_24dp"
-            android:title="Reminders" />
-        <item
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_account_box_black_24dp"
             android:title="Account" />

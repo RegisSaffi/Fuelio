@@ -42,6 +42,7 @@ public class RequestsActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     String phn;
+    boolean complete,nothing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +75,23 @@ public class RequestsActivity extends AppCompatActivity {
 
         requestId = getIntent().getStringExtra("id");
         issue = getIntent().getStringExtra("origin");
+        complete=getIntent().getBooleanExtra("complete",false);
+        nothing=getIntent().getBooleanExtra("nothing",false);
 
         issueTv.setText(issue);
 
         setTitle("Request details");
+
+        if(complete){
+            reject.setVisibility(View.GONE);
+            accept.setBackgroundColor(getResources().getColor(R.color.quantum_googgreen));
+            accept.setText("Complete request");
+        }
+
+        if(nothing){
+            reject.setVisibility(View.GONE);
+            accept.setVisibility(View.GONE);
+        }
 
         call.setOnClickListener(v -> {
             try {
@@ -102,13 +116,12 @@ public class RequestsActivity extends AppCompatActivity {
 
             accept.setEnabled(false);
             progress.setVisibility(View.VISIBLE);
-
             DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(requestId);
             Map<String, Object> d = new HashMap<>();
-            d.put("status", "accepted");
+            d.put("status", complete?"completed":"accepted");
 
             reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
-                Toasty.success(RequestsActivity.this, "User request accepted,we'll notify user once you reach in his/her area.").show();
+                Toasty.success(RequestsActivity.this, complete?"The request was completed":"User request accepted,we'll notify user once you reach in his/her area.").show();
                 finish();
             }).addOnFailureListener(e -> {
                         Toasty.error(RequestsActivity.this, "Acceptance failed.").show();
