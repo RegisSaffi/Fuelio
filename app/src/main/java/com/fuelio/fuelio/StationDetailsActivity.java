@@ -341,7 +341,7 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
                         request.put("station_name", stationDocument.getString("name"));
                         request.put("station_id", stationDocument.getId());
                         request.put("modified", false);
-                        request.put("amount",finalSelectedService.getPlate());
+                        request.put("amount",100);
                        request.put("issue", finalSelectedService.getName());
                         request.put("description",more.getText().toString());
                         request.put("status", "pending");

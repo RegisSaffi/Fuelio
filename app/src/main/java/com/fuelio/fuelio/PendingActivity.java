@@ -48,6 +48,7 @@ public class PendingActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     String servicePrice="0.00";
+    DocumentSnapshot mainDoc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +102,7 @@ public class PendingActivity extends AppCompatActivity {
                 String duration = document.getString("duration");
 
                 servicePrice = document.getString("amount");
+                mainDoc=document;
 
                 timeTv.setText(duration);
                 nameTv.setText(name);
@@ -313,4 +315,34 @@ public class PendingActivity extends AppCompatActivity {
         Volley.newRequestQueue(PendingActivity.this).add(request);
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+        new AlertDialog.Builder(PendingActivity.this)
+                .setTitle("Confirm")
+                .setMessage("Would you like to cancel your request?")
+                .setNegativeButton("No", (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                    super.onBackPressed();
+                }).setPositiveButton("Yes", (dialogInterface, i) -> {
+
+            //cancelling request
+
+            DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(mainDoc.getId());
+            Map<String, Object> d = new HashMap<>();
+            d.put("status", "cancelled");
+            d.put("modified", true);
+
+            reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
+                Toasty.success(PendingActivity.this, "Request cancelled by you.").show();
+                startActivity(new Intent(PendingActivity.this, MainActivity.class));
+                finish();
+
+            }).addOnFailureListener(e2 -> Toasty.error(PendingActivity.this, "Cancel failed.").show());
+
+        }).show();
+
+
+    }
 }

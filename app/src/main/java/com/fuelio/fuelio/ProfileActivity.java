@@ -19,6 +19,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -84,9 +87,19 @@ public class ProfileActivity extends AppCompatActivity {
                         dialogInterface.cancel();
 
                     }).setPositiveButton("Delete", (dialogInterface, i) -> {
-                new PrefManager(ProfileActivity.this).logout();
-                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-                finish();
+                String stId=new PrefManager(this).getRegistrationToken();
+                if(stId!="none"){
+                    FirebaseFirestore.getInstance().collection("stations").document(stId).delete();
+                }
+                FirebaseFirestore.getInstance().collection("users").document(new PrefManager(this).getPhone()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        clearAppData();
+                        startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+
             }).show();
         });
     }
