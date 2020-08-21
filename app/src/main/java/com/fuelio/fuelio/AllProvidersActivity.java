@@ -1,5 +1,6 @@
 package com.fuelio.fuelio;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -63,6 +64,25 @@ public class AllProvidersActivity extends AppCompatActivity {
         cardBusAdapter = new userStationAdapter(userStations, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(cardBusAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, int pos) {
+
+                userStation card=userStations.get(pos);
+
+                //Intent in=new Intent(StationActivity.this,RequestsActivity.class);
+//                in.putExtra("id",card.getId());
+//
+//                startActivity(in);
+
+            }
+            @Override
+            public void onLongClick(View view, int pos) {
+
+            }
+        }));
 
         listenProviders();
     }

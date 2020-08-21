@@ -283,11 +283,11 @@ public class PendingActivity extends AppCompatActivity {
 
                             }).addOnFailureListener(e2 -> Toasty.error(PendingActivity.this, "Payment failed.").show());
 
-
                         }catch (Exception e){
-                            Toasty.error(PendingActivity.this,"Received data error").show();
 
+                            Toasty.error(PendingActivity.this,"Received data error").show();
                             e.printStackTrace();
+
                         }
 
                        // Toasty.info(PendingActivity.this,response.toString()).show();

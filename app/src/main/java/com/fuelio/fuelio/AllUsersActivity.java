@@ -1,9 +1,11 @@
 package com.fuelio.fuelio;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,12 +17,16 @@ import com.fuelio.fuelio.adapters.userStationAdapter;
 import com.fuelio.fuelio.models.userStation;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class AllUsersActivity extends AppCompatActivity {
@@ -63,6 +69,49 @@ public class AllUsersActivity extends AppCompatActivity {
         cardBusAdapter = new userStationAdapter(userStations, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(cardBusAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, int pos) {
+                userStation user=userStations.get(pos);
+
+                new AlertDialog.Builder(AllUsersActivity.this)
+                        .setMessage("What do you want to do with this user?")
+                        .setTitle("User actions")
+                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                DocumentReference reference = FirebaseFirestore.getInstance().collection("users").document(user.getId());
+                                reference.delete();
+
+                                finish();
+                            }
+                        }).setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setNeutralButton("Disable/Enable", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        DocumentReference reference = FirebaseFirestore.getInstance().collection("users").document(user.getId());
+                        Map<String, Object> d = new HashMap<>();
+                        d.put("disabled", true);
+                        reference.set(d, SetOptions.merge());
+
+                        finish();
+                    }
+                }).show();
+
+            }
+            @Override
+            public void onLongClick(View view, int pos) {
+
+            }
+        }));
 
         listenRequests();
     }
