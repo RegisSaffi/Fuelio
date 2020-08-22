@@ -280,7 +280,9 @@ public class MainActivity extends AppCompatActivity
             }else {
 
                 save.setEnabled(false);
+
                 DocumentReference vRef=FirebaseFirestore.getInstance().collection("vehicles").document();
+
                 Map<String,Object> vMap=new HashMap<>();
                 vMap.put("model",model.getText().toString());
                 vMap.put("plate",plate.getText().toString());

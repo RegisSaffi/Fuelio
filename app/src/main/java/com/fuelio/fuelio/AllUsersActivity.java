@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class AllUsersActivity extends AppCompatActivity {
 
@@ -93,7 +95,7 @@ public class AllUsersActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                }).setNeutralButton("Disable/Enable", new DialogInterface.OnClickListener() {
+                }).setNeutralButton("Block/Unblock", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -102,7 +104,7 @@ public class AllUsersActivity extends AppCompatActivity {
                         d.put("disabled", true);
                         reference.set(d, SetOptions.merge());
 
-                        finish();
+                        Toasty.info(AllUsersActivity.this,"Blocked successfully").show();
                     }
                 }).show();
 

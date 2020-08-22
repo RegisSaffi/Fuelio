@@ -24,7 +24,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="310dp"
-                    android:background="#70000000" />
+                    android:background="@drawable/bg" />
 
                 <LinearLayout
                     android:id="@+id/profile_layout"
@@ -36,50 +36,30 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgProfile"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="50dp"
-                        android:src="@drawable/facebook_avatar" />
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="2dp"
+                        android:src="@drawable/icon" />
 
-                    <!--                <ImageButton-->
-                    <!--                    android:id="@+id/fabbtnUpload"-->
-                    <!--                    android:layout_width="40dp"-->
-                    <!--                    android:layout_height="40dp"-->
-                    <!--                    android:layout_marginTop="-30dp"-->
-                    <!--                    android:layout_marginLeft="40dp"-->
-                    <!--                    android:layout_marginRight="10dp"-->
-                    <!--                    android:layout_gravity="center"-->
-                    <!--                    android:src="@android:drawable/ic_menu_camera"-->
-                    <!--                    android:layout_marginStart="40dp"-->
-                    <!--                    android:tint="@color/colorPrimaryDark"-->
-                    <!--                    android:layout_marginEnd="10dp" />-->
 
-                    <TextView
-                        android:id="@+id/nameTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:text="Profile Name"
-                        android:textColor="#fff"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/typeTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:text="User"
-                        android:textColor="#bcbcbc"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
 
                 </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/review"
+                    android:layout_width="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="20dp"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_star_black_24dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -87,13 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin">
-
-                <ImageView
-                    android:id="@+id/edit"
-                    android:layout_width="30dp"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="30dp"/>
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -119,9 +92,47 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:weightSum="2"
+                        android:layout_height="wrap_content">
+
+
+                    <mehdi.sakout.fancybuttons.FancyButton
+                        android:id="@+id/request2"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        app:fb_text="Delete"
+                        android:layout_weight="1"
+                        app:fb_textColor="@color/white"
+                        app:fb_borderWidth="3dp"
+                        app:fb_borderColor="#a4033f48"
+                        app:fb_defaultColor="@color/colorRed"
+                        app:fb_radius="25dp"
+                        app:fb_focusColor="#FD002B1E"
+                        android:layout_gravity="center"
+                        android:layout_margin="15dp" />
+
+
+                        <mehdi.sakout.fancybuttons.FancyButton
+                            android:id="@+id/block"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            app:fb_text="block"
+                            android:layout_weight="1"
+                            app:fb_textColor="@color/white"
+                            app:fb_borderWidth="3dp"
+                            app:fb_borderColor="#a4033f48"
+                            app:fb_defaultColor="@color/colorPrimary"
+                            app:fb_radius="25dp"
+                            app:fb_focusColor="#FD002B1E"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp" />
+
+                    </LinearLayout>
 
                     <ProgressBar
                         android:id="@+id/progress"
@@ -134,9 +145,9 @@
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="5dp"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground"
@@ -161,7 +172,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Full name:"
+                                    android:text="Name:"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -170,7 +181,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:text="Name here" />
+                                    android:text="..." />
                             </RelativeLayout>
 
 
@@ -193,11 +204,10 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:text="Email here" />
-
-
-
+                                    android:text="..." />
                             </RelativeLayout>
+
+
 
 
                             <RelativeLayout
@@ -219,23 +229,66 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:text="Phone here" />
+                                    android:text="..." />
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginBottom="15dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Website:"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvWeb"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:text="..." />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginBottom="15dp">
+
+                                <TextView
+                                    android:id="@+id/desc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Description:"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvDesc"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/desc"
+                                    android:text="..." />
                             </RelativeLayout>
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-
                     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="16dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackground"
+                        android:layout_marginRight="5dp"
                         android:orientation="vertical"
                         app:cardCornerRadius="7dp"
                         app:cardElevation="1dp"
@@ -246,68 +299,44 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <RelativeLayout
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginRight="15dp"
-                                android:layout_marginBottom="15dp">
+                                android:orientation="vertical"
+                                android:paddingBottom="70dp"
+                                android:layout_height="wrap_content">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Push notifications:"
+                                    android:text="Reviews:"
                                     android:textSize="18sp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginBottom="15dp"
                                     android:textStyle="bold" />
 
-                                <androidx.appcompat.widget.SwitchCompat
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true" />
-                            </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/my_recycler_view2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+                                        android:id="@+id/info"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:layout_margin="20dp"
+                                        android:text="No reviews yet"
+                                        android:textAlignment="center"
+                                        android:visibility="gone" />
+                                </RelativeLayout>
+                            </LinearLayout>
 
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginRight="15dp"
-                                android:layout_marginBottom="15dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Email notifications:"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
-
-                                <androidx.appcompat.widget.SwitchCompat
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true" />
-                            </RelativeLayout>
-
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginRight="15dp"
-                                android:layout_marginBottom="15dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Phone SMS:"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
-
-                                <androidx.appcompat.widget.SwitchCompat
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true" />
-                            </RelativeLayout>
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -316,7 +345,7 @@
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_marginBottom="25dp"
@@ -325,25 +354,12 @@
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:paddingBottom="35dp">
-
-                    <mehdi.sakout.fancybuttons.FancyButton
-                        android:id="@+id/delete"
-                        android:layout_width="200dp"
-                        android:layout_height="35dp"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="30dp"
-                        app:fb_borderColor="@color/colorRed"
-                        app:fb_borderWidth="3dp"
-                        app:fb_defaultColor="@color/white"
-                        app:fb_focusColor="#FD002B1E"
-                        app:fb_radius="5dp"
-                        app:fb_text="Delete account"
-                        app:fb_textColor="@color/colorRed" />
                 </RelativeLayout>
+
 
             </LinearLayout>
         </ScrollView>
     </androidx.core.widget.NestedScrollView>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

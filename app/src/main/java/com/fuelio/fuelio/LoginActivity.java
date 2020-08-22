@@ -389,7 +389,7 @@ public class LoginActivity extends AppCompatActivity {
                     String st = (String) doc.get(0).get("station");
 
                     new PrefManager(getApplicationContext()).setRegistrationtoken(st);
-                    new PrefManager(getApplicationContext()).setType("station");
+                    new PrefManager(getApplicationContext()).setType(tp);
                 }
 
                 new PrefManager(getApplicationContext()).setPhone(phoneNumber);
@@ -401,7 +401,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (tp != null) {
                     if(tp.equals("station")){
                         in=new Intent(getApplicationContext(), StationActivity.class);
-                    }else {
+                    } if(tp.equals("admin")){
+                        in = new Intent(getApplicationContext(), AdminActivity.class);
+                    }
+                    else {
                         in = new Intent(getApplicationContext(), MainActivity.class);
                     }
                 }else{

@@ -6,6 +6,8 @@ public class vehicle
     public String name="none";
     public String plate="none";
     private String id;
+    String color;
+    String owner;
     boolean selected=false;
     boolean isSmall=false;
 
@@ -42,7 +44,16 @@ public class vehicle
     {
         return plate;
     }
+    public String getColor()
+    {
+        return color;
+    }
+    public void setColor(String color){this.color=color;}
 
-
+    public String getOwner()
+    {
+        return owner;
+    }
+    public void setOwner(String owner){this.owner=owner;}
 
 }

@@ -68,6 +68,7 @@
         <activity android:name=".StationPendingActivity" />
         <activity android:name=".StationAcceptedActivity" />
         <activity android:name=".StationCompleteActivity" />
+        <activity android:name=".StationDetailsAdmin" />
     </application>
 
 </manifest>

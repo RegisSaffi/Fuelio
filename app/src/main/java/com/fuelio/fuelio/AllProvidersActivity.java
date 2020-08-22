@@ -72,10 +72,13 @@ public class AllProvidersActivity extends AppCompatActivity {
 
                 userStation card=userStations.get(pos);
 
-                //Intent in=new Intent(StationActivity.this,RequestsActivity.class);
-//                in.putExtra("id",card.getId());
-//
-//                startActivity(in);
+                String name=card.getName();
+
+                Intent in=new Intent(getApplicationContext(),StationDetailsAdmin.class);
+                in.putExtra("name",name);
+                in.putExtra("id",card.getId());
+
+                startActivity(in);
 
             }
             @Override

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,7 +31,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.SetOptions;
+import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -263,29 +267,30 @@ public class PendingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         progress.cancel();
+                        Log.i("RES",response.toString());
 
                         try {
                             String id=response.getString("transactionid");
-                            //Toasty.info(PendingActivity.this,response.getString("status") ).show();
-                           // Toasty.success(PendingActivity.this,"Service paid successfully").show();
 
-                            DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(id1);
-                            Map<String, Object> d = new HashMap<>();
-                            d.put("status", "paid");
-                            d.put("modified", true);
+                            waitForPayment(id,id1);
 
-                            reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
-
-                                Toasty.success(PendingActivity.this,"Service paid successfully").show();
-
-                                startActivity(new Intent(PendingActivity.this, MainActivity.class));
-                                finish();
-
-                            }).addOnFailureListener(e2 -> Toasty.error(PendingActivity.this, "Payment failed.").show());
+//                            DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(id1);
+//                            Map<String, Object> d = new HashMap<>();
+//                            d.put("status", "paid");
+//                            d.put("modified", true);
+//
+//                            reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
+//
+//                                Toasty.success(PendingActivity.this,"Service paid successfully").show();
+//
+//                                startActivity(new Intent(PendingActivity.this, MainActivity.class));
+//                                finish();
+//
+//                            }).addOnFailureListener(e2 -> Toasty.error(PendingActivity.this, "Payment failed.").show());
 
                         }catch (Exception e){
 
-                            Toasty.error(PendingActivity.this,"Received data error").show();
+                            Toasty.error(PendingActivity.this,"Make sure you have enough funds on your mobile money.").show();
                             e.printStackTrace();
 
                         }
@@ -303,7 +308,7 @@ public class PendingActivity extends AppCompatActivity {
                     Toasty.info(PendingActivity.this,obj.getString("error") ).show();
                 }catch (Exception e){
                     e.printStackTrace();
-                }
+                };
                 }else {
 
                     Toasty.info(PendingActivity.this, "Payment failed, try again later").show();
@@ -315,6 +320,98 @@ public class PendingActivity extends AppCompatActivity {
         Volley.newRequestQueue(PendingActivity.this).add(request);
     }
 
+    void waitForPayment(String id,String id2){
+
+        ProgressDialog progress=ProgressDialog.show(PendingActivity.this,"","Please confirm your payment on your phone..",true,false);
+        JsonObjectRequest request= new JsonObjectRequest(
+                Request.Method.GET,
+                "http://akokanya.com/api/mtn-integration/"+id,
+                null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        progress.cancel();
+                        Log.i("RES",response.toString());
+
+                        try {
+                            String status=response.getString("payment_status");
+                            if(status.equals("PENDING")){
+
+                                new CountDownTimer(3000, 1000) {
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+
+                                        waitForPayment(id,id2);
+                                    }
+                                }.start();
+
+                                return;
+                            }
+
+                            DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(id2);
+                            Map<String, Object> d = new HashMap<>();
+                            d.put("status", "paid");
+                            d.put("modified", true);
+
+                            reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
+
+                                Toasty.success(PendingActivity.this,"Service paid successfully").show();
+
+                                startActivity(new Intent(PendingActivity.this, MainActivity.class));
+                                finish();
+
+                            }).addOnFailureListener(e2 -> Toasty.error(PendingActivity.this, "Payment failed.").show());
+
+                        }catch (Exception e){
+
+                            Toasty.error(PendingActivity.this,response.toString()).show();
+                            e.printStackTrace();
+
+                        }
+
+                        // Toasty.info(PendingActivity.this,response.toString()).show();
+                    }
+                },
+                new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progress.cancel();
+                error.printStackTrace();
+                if(error.networkResponse!=null){
+                    try {
+                        JSONObject obj = new JSONObject(new String(error.networkResponse.data));
+                        Toasty.info(PendingActivity.this,obj.getString("error") ).show();
+                    }catch (Exception e){
+                        Toasty.info(PendingActivity.this, "Your payment might be expired or already paid.").show();
+                        e.printStackTrace();
+                    };
+                }else {
+
+                    Toasty.info(PendingActivity.this, "Your payment might be expired or already paid.").show();
+                }
+            }
+        }
+        ){
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                Map headers = new HashMap();
+                headers.put("token","OINjoOhop()*42CS%EWCSf@4r54%vfds!#gd^");
+                return headers;
+            }
+        };
+
+
+
+        Volley.newRequestQueue(PendingActivity.this).add(request);
+
+
+    }
 
     @Override
     public void onBackPressed() {

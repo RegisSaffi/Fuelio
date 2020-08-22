@@ -33,8 +33,14 @@ public class Splash extends AppCompatActivity {
                 public void onFinish() {
 
                     if(!type.equals("user")){
-                        startActivity(new Intent(getApplicationContext(), StationActivity.class));
-                        finish();
+
+                        if(type.equals("admin")){
+                            startActivity(new Intent(getApplicationContext(), AdminActivity.class));
+                            finish();
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), StationActivity.class));
+                            finish();
+                        }
                     }else {
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();

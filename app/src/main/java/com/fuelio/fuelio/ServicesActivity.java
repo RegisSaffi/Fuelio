@@ -62,6 +62,23 @@ public class ServicesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(cardBusAdapter);
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, int pos) {
+
+                service v=services.get(pos);
+
+              //  showNewVehicle(v);
+
+            }
+            @Override
+            public void onLongClick(View view, int pos) {
+
+            }
+        }));
+
+
         listenServices();
     }
 

@@ -379,7 +379,6 @@ if(new PrefManager(this).getType().equals("admin")){
     }
 
 
-
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new Builder(this)
                 .addConnectionCallbacks(this)
