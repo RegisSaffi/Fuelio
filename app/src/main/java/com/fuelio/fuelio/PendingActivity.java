@@ -20,6 +20,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -31,8 +32,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.SetOptions;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -323,19 +326,20 @@ public class PendingActivity extends AppCompatActivity {
     void waitForPayment(String id,String id2){
 
         ProgressDialog progress=ProgressDialog.show(PendingActivity.this,"","Please confirm your payment on your phone..",true,false);
-        JsonObjectRequest request= new JsonObjectRequest(
+        JsonArrayRequest request= new JsonArrayRequest(
                 Request.Method.GET,
                 "http://akokanya.com/api/mtn-integration/"+id,
                 null,
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
-                        progress.cancel();
+                    public void onResponse(JSONArray response) {
+
                         Log.i("RES",response.toString());
 
                         try {
-                            String status=response.getString("payment_status");
+
+                            String status=response.getJSONObject(0).getString("payment_status");
                             if(status.equals("PENDING")){
 
                                 new CountDownTimer(3000, 1000) {
@@ -386,9 +390,10 @@ public class PendingActivity extends AppCompatActivity {
                 if(error.networkResponse!=null){
                     try {
                         JSONObject obj = new JSONObject(new String(error.networkResponse.data));
+
                         Toasty.info(PendingActivity.this,obj.getString("error") ).show();
                     }catch (Exception e){
-                        Toasty.info(PendingActivity.this, "Your payment might be expired or already paid.").show();
+//                        Toasty.info(PendingActivity.this, "Your payment might be expired or already paid.").show();
                         e.printStackTrace();
                     };
                 }else {
@@ -399,17 +404,14 @@ public class PendingActivity extends AppCompatActivity {
         }
         ){
             @Override
-            public Map getHeaders() throws AuthFailureError {
-                Map headers = new HashMap();
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
                 headers.put("token","OINjoOhop()*42CS%EWCSf@4r54%vfds!#gd^");
                 return headers;
             }
         };
 
-
-
         Volley.newRequestQueue(PendingActivity.this).add(request);
-
 
     }
 
@@ -421,7 +423,7 @@ public class PendingActivity extends AppCompatActivity {
                 .setMessage("Would you like to cancel your request?")
                 .setNegativeButton("No", (dialogInterface, i) -> {
                     dialogInterface.cancel();
-                    super.onBackPressed();
+
                 }).setPositiveButton("Yes", (dialogInterface, i) -> {
 
             //cancelling request
