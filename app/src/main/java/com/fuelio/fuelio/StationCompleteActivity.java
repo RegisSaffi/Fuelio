@@ -34,6 +34,8 @@ public class StationCompleteActivity extends AppCompatActivity {
    com.fuelio.fuelio.models.requestCard requestCard;
     List<requestCard> requestCards;
 
+    boolean isMe=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class StationCompleteActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener(v -> finish());
         }
 
-       toolbar.setTitle("Completed&Rejected requests");
+
         info = findViewById(R.id.info);
 
         requestCards = new ArrayList<>();
@@ -59,6 +61,11 @@ public class StationCompleteActivity extends AppCompatActivity {
             refresh.postDelayed(() -> refresh.setRefreshing(false), 3000);
         });
 
+        isMe=getIntent().getBooleanExtra("isme",true);
+
+        if(!isMe){
+            toolbar.setTitle("Provider report");
+        }
 
         recyclerView = findViewById(R.id.my_recycler_view);
         cardBusAdapter = new requestCardsAdapter(requestCards, this);
@@ -95,11 +102,20 @@ public class StationCompleteActivity extends AppCompatActivity {
         info.setVisibility(View.VISIBLE);
         info.setText("Loading...");
 
-        String st=new PrefManager(getApplicationContext()).getRegistrationToken();
+        String st;
+
+        if(isMe) {
+            st = new PrefManager(getApplicationContext()).getRegistrationToken();
+        }else{
+            st=getIntent().getStringExtra("id");
+        }
+
+
 
         List<String> a=new ArrayList<>();
         a.add("completed");
         a.add("rejected");
+        a.add("paid");
 
         CollectionReference reference = FirebaseFirestore.getInstance().collection("requests");
         Query query = reference.whereEqualTo("station_id", st).whereIn("status",a);
@@ -127,7 +143,7 @@ public class StationCompleteActivity extends AppCompatActivity {
                 cardBusAdapter.notifyDataSetChanged();
             } else {
                 info.setVisibility(View.VISIBLE);
-                info.setText("No completed or rejectedrequests.");
+                info.setText("No completed,paid or rejected requests.");
             }
 
         }).addOnFailureListener(e -> info.setText("Failed to get your histories"));

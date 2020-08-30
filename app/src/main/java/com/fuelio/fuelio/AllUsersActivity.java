@@ -1,6 +1,7 @@
 package com.fuelio.fuelio;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -76,6 +77,19 @@ public class AllUsersActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view, int pos) {
+
+                userStation user=userStations.get(pos);
+
+                Intent in=new Intent(AllUsersActivity.this,HistoryActivity.class);
+                in.putExtra("isme",false);
+                in.putExtra("id",user.getId());
+
+                startActivity(in);
+
+            }
+            @Override
+            public void onLongClick(View view, int pos) {
+
                 userStation user=userStations.get(pos);
 
                 new AlertDialog.Builder(AllUsersActivity.this)
@@ -107,11 +121,6 @@ public class AllUsersActivity extends AppCompatActivity {
                         Toasty.info(AllUsersActivity.this,"Blocked successfully").show();
                     }
                 }).show();
-
-            }
-            @Override
-            public void onLongClick(View view, int pos) {
-
             }
         }));
 

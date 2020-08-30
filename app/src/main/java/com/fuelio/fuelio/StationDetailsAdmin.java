@@ -98,13 +98,15 @@ public class StationDetailsAdmin extends AppCompatActivity {
     TextView timeTv, distanceTv, nameTv,descTv,emailTv,phoneTv,webTv;
     ProgressDialog progressDialog;
 
-    FancyButton  preButton,blockButton;
+    FancyButton  preButton,blockButton,reportButton;
     DocumentSnapshot stationDocument;
 
     TextInputEditText more;
 
     ImageView review;
     boolean blocked;
+
+    String stId;
 
 
     private boolean bound = false;
@@ -170,6 +172,8 @@ public class StationDetailsAdmin extends AppCompatActivity {
 
         preButton=findViewById(R.id.request2);
         blockButton=findViewById(R.id.block);
+
+        reportButton=findViewById(R.id.report);
 
         //preButton.setOnClickListener(v->toggleBottomSheet());
 
@@ -252,9 +256,21 @@ public class StationDetailsAdmin extends AppCompatActivity {
 
            }).show();
         });
+
+        reportButton.setOnClickListener(v->{
+
+            Intent in=new Intent(StationDetailsAdmin.this,StationCompleteActivity.class);
+            in.putExtra("isme",false);
+            in.putExtra("id",stId);
+
+            startActivity(in);
+
+        });
         /////////////////
 
     }
+
+
 
 
     void showAddReview(){
@@ -364,6 +380,8 @@ public class StationDetailsAdmin extends AppCompatActivity {
                 String email= (String) stationDocument.get("email");
                 String address= (String) stationDocument.get("address");
                 String cat= (String) stationDocument.get("category");
+
+                stId=stationDocument.getId();
 
                 if(stationDocument.contains("blocked")){
                     blocked=stationDocument.getBoolean("blocked");

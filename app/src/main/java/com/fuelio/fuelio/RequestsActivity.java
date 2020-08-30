@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 public class RequestsActivity extends AppCompatActivity {
 
-    TextView distanceTv, timeTv, nameTv, phoneTv, seatsTv, issueTv, descTv,dateTv,costTv;
+    TextView distanceTv, timeTv, nameTv, phoneTv, seatsTv, issueTv, descTv,dateTv,costTv,providerTv;
 
     FancyButton accept, reject;
 
@@ -67,6 +68,8 @@ public class RequestsActivity extends AppCompatActivity {
         descTv = findViewById(R.id.desc);
         dateTv=findViewById(R.id.dateTv);
         timeTv = findViewById(R.id.time);
+
+        providerTv = findViewById(R.id.provider);
 
         accept = findViewById(R.id.accept);
         reject = findViewById(R.id.reject);
@@ -176,6 +179,8 @@ public class RequestsActivity extends AppCompatActivity {
             String amount = document.getString("amount");
             String duration = document.getString("duration");
 
+            String st = document.getString("station_name");
+
             timeTv.setText(duration);
             nameTv.setText(name);
             phoneTv.setText(phone);
@@ -185,6 +190,9 @@ public class RequestsActivity extends AppCompatActivity {
             descTv.setText(desc);
             issueTv.setText(issue);
 
+            providerTv.setText(st);
+
+            dateTv.setText(time.toDate().toString());
             progress.setVisibility(View.GONE);
             call.setEnabled(true);
             accept.setEnabled(true);

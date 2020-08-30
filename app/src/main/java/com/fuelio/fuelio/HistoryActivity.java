@@ -1,5 +1,6 @@
 package com.fuelio.fuelio;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -32,6 +35,8 @@ public class HistoryActivity extends AppCompatActivity {
     requestCardsAdapter cardBusAdapter;
    com.fuelio.fuelio.models.requestCard requestCard;
     List<requestCard> requestCards;
+
+    boolean isMe=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,35 @@ public class HistoryActivity extends AppCompatActivity {
             refresh.postDelayed(() -> refresh.setRefreshing(false), 3000);
         });
 
+        isMe=getIntent().getBooleanExtra("isme",true);
+
 
         recyclerView = findViewById(R.id.my_recycler_view);
         cardBusAdapter = new requestCardsAdapter(requestCards, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(cardBusAdapter);
+
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, int pos) {
+
+                requestCard card=requestCards.get(pos);
+
+                Intent in=new Intent(HistoryActivity.this,RequestsActivity.class);
+                in.putExtra("issue",card.getIssue());
+                in.putExtra("id",card.getId());
+                in.putExtra("nothing",true);
+
+                startActivity(in);
+
+            }
+            @Override
+            public void onLongClick(View view, int pos) {
+
+            }
+        }));
 
         listenRequests();
     }
@@ -73,7 +102,15 @@ public class HistoryActivity extends AppCompatActivity {
         info.setVisibility(View.VISIBLE);
         info.setText("Loading...");
 
-        String myId = new PrefManager(this).getId();
+        String myId;
+        if(isMe) {
+//            Toasty.info(HistoryActivity.this,"Is me").show();
+          myId = new PrefManager(this).getId();
+        }else{
+            myId=getIntent().getStringExtra("id");
+//            Toasty.info(HistoryActivity.this,"Not:n"+myId).show();
+        }
+
         CollectionReference reference = FirebaseFirestore.getInstance().collection("requests");
         Query query = reference.whereEqualTo("requester_id", myId);
 

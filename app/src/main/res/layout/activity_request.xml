@@ -51,6 +51,11 @@
                 android:orientation="vertical">
 
                 <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service:" />
+                <TextView
                     android:id="@+id/issueTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -253,6 +258,33 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="25dp"
                 android:textSize="18sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/quantum_grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000"
+                android:text="Service provider:" />
+
+            <TextView
+                android:id="@+id/provider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text=""
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="25dp"
+                android:textSize="18sp" />
+
+
 
             <LinearLayout
                 android:id="@+id/b"

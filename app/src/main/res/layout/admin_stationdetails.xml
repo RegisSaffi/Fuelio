@@ -132,6 +132,22 @@
                             android:layout_gravity="center"
                             android:layout_margin="15dp" />
 
+
+                        <mehdi.sakout.fancybuttons.FancyButton
+                            android:id="@+id/report"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            app:fb_text="Report"
+                            android:layout_weight="1"
+                            app:fb_textColor="@color/white"
+                            app:fb_borderWidth="3dp"
+                            app:fb_borderColor="#a4033f48"
+                            app:fb_defaultColor="@color/colorPrimary"
+                            app:fb_radius="25dp"
+                            app:fb_focusColor="#FD002B1E"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp" />
+
                     </LinearLayout>
 
                     <ProgressBar

@@ -48,15 +48,14 @@
             </androidx.cardview.widget.CardView>
             <!-- A CardView that contains a TextView -->
             <androidx.cardview.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card_view"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                card_view:cardBackgroundColor="#00000000"
+                app:cardBackgroundColor="#00000000"
                 android:visibility="visible"
-                card_view:cardElevation="0dp"
-                card_view:cardCornerRadius="4dp">
+                app:cardElevation="0dp"
+                app:cardCornerRadius="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,6 +72,9 @@
                         android:layout_height="70dp"
                         android:src="@mipmap/ic_launcher" />
 
+
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -86,9 +88,9 @@
                             android:layout_height="40dp"
                             android:visibility="visible"
                             android:background="@drawable/white_rounded"
-                            card_view:ccp_showFlag="true"
-                            card_view:ccp_showPhoneCode="true"
-                            card_view:ccp_showNameCode="false"
+                            app:ccp_showFlag="true"
+                            app:ccp_showPhoneCode="true"
+                            app:ccp_showNameCode="false"
                             android:layout_marginBottom="2dp"
                             app:ccp_textSize="14sp" />
                         <androidx.appcompat.widget.AppCompatEditText
