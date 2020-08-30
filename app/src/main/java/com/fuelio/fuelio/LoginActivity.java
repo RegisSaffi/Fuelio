@@ -104,15 +104,15 @@ public class LoginActivity extends AppCompatActivity {
         cv2= findViewById(R.id.card_view2);
 
 
-        if(!new PrefManager(this).getPhone().equals("none")){
-
-            Intent in = new Intent(getApplicationContext(), RegisterActivity.class);
-            in.putExtra("user", false);
-            in.putExtra("phone", new PrefManager(this).getPhone());
-
-            startActivity(in);
-            finish();
-        }
+//        if(!new PrefManager(this).getPhone().equals("none")){
+//
+//            Intent in = new Intent(getApplicationContext(), RegisterActivity.class);
+//            in.putExtra("user", false);
+//            in.putExtra("phone", new PrefManager(this).getPhone());
+//
+//            startActivity(in);
+//            finish();
+//        }
 
 
         StartFirebaseLogin();
@@ -389,7 +389,7 @@ public class LoginActivity extends AppCompatActivity {
                     String st = (String) doc.get(0).get("station");
 
                     new PrefManager(getApplicationContext()).setRegistrationtoken(st);
-                    new PrefManager(getApplicationContext()).setType(tp);
+                    new PrefManager(getApplicationContext()).setType("station");
                 }
 
                 new PrefManager(getApplicationContext()).setPhone(phoneNumber);
@@ -401,7 +401,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (tp != null) {
                     if(tp.equals("station")){
                         in=new Intent(getApplicationContext(), StationActivity.class);
-                    } if(tp.equals("admin")){
+                    } else if(tp.equals("admin")){
                         in = new Intent(getApplicationContext(), AdminActivity.class);
                     }
                     else {

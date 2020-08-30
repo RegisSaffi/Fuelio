@@ -105,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if(stId!="none"){
                     FirebaseFirestore.getInstance().collection("stations").document(stId).delete();
                 }
-                FirebaseFirestore.getInstance().collection("users").document(new PrefManager(this).getPhone()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                FirebaseFirestore.getInstance().collection("users").document(new PrefManager(this).getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         clearAppData();
