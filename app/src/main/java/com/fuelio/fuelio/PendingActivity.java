@@ -1,6 +1,7 @@
 package com.fuelio.fuelio;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -247,9 +248,24 @@ public class PendingActivity extends AppCompatActivity {
                 finish();
                 //Toasty.error(PendingActivity.this, "Your request paid successfully.").show();
             } else {
-                startActivity(new Intent(PendingActivity.this, MainActivity.class));
-                finish();
+
                 Toasty.error(PendingActivity.this, "Your request might have been rejected by the service provider.").show();
+
+                new AlertDialog.Builder(PendingActivity.this)
+                        .setTitle("Request rejected")
+                        .setMessage((String)document.get("reason"))
+                        .setOnCancelListener(dialog -> {
+
+                            startActivity(new Intent(PendingActivity.this, MainActivity.class));
+                            finish();
+                        })
+                        .setPositiveButton("Ok", (dialog, which) -> {
+
+                            startActivity(new Intent(PendingActivity.this, MainActivity.class));
+                            finish();
+                       }).show();
+
+
             }
 
 

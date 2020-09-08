@@ -5,11 +5,13 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -126,11 +128,13 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
     double originLatitude, originLongitude, destinationLatitude, destinationLongitude;
     String destinationName, destinationId;
 
-    TextView timeTv, distanceTv, nameTv,descTv,emailTv,phoneTv,webTv;
+    TextView timeTv, distanceTv, nameTv,descTv,emailTv,phoneTv,webTv,addressTv;
     ProgressDialog progressDialog;
 
     FancyButton requestBtn,preButton;
     DocumentSnapshot stationDocument;
+
+    ImageView addressImg;
 
     TextInputEditText more;
 
@@ -210,6 +214,9 @@ public class StationDetailsActivity extends AppCompatActivity implements Connect
         descTv=findViewById(R.id.tvDesc);
         phoneTv=findViewById(R.id.tvPhone);
         more=findViewById(R.id.more);
+
+        addressTv=findViewById(R.id.addressTxt);
+        addressImg=findViewById(R.id.addressImg);
 
         review=findViewById(R.id.review);
         review.setOnClickListener(v->showAddReview());
@@ -579,6 +586,19 @@ if(stationDocument.contains("services")){
 
 }
 
+addressImg.setOnClickListener(v->{
+
+    // Create a Uri from an intent string. Use the result to create an Intent.
+    Uri gmmIntentUri = Uri.parse("geo:"+loc.latitude+","+loc.longitude);
+
+    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+    mapIntent.setPackage("com.google.android.apps.maps");
+
+    startActivity(mapIntent);
+
+});
+
+                addressTv.setText(address+"\n"+loc.latitude+","+loc.longitude);
 
                 toolbar.setSubtitle(address);
                 nameTv.setText(name+"("+cat+")");

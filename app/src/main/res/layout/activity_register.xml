@@ -87,7 +87,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Register as station or garage"
+                android:text="Register as service provider"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_height="wrap_content"/>
@@ -113,7 +113,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Enter the station details"
+                android:text="Enter the Provider details"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:layout_height="wrap_content"/>
@@ -125,7 +125,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
-                    android:hint="Station name"
+                    android:hint="Provider name"
                     android:singleLine="true"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -136,7 +136,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/website"
                     android:layout_width="match_parent"
-                    android:hint="Station website"
+                    android:hint="Provider website"
                     android:singleLine="true"
                     android:inputType="textWebEditText"
                     android:layout_height="wrap_content"/>
@@ -149,7 +149,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/desc"
                     android:layout_width="match_parent"
-                    android:hint="Station details"
+                    android:hint="Provider details"
                     android:minLines="3"
                     android:maxLines="7"
                     android:inputType="textMultiLine"
@@ -164,7 +164,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/address"
                     android:layout_width="match_parent"
-                    android:hint="Station address"
+                    android:hint="Provider address"
                     android:focusable="false"
                     android:editable="false"
                     android:inputType="text"

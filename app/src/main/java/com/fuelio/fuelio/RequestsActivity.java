@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -138,25 +140,60 @@ public class RequestsActivity extends AppCompatActivity {
 
         reject.setOnClickListener(v -> {
 
-            reject.setEnabled(false);
-            progress.setVisibility(View.VISIBLE);
-            DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(requestId);
-            Map<String, Object> d = new HashMap<>();
-            d.put("status", "rejected");
-            d.put("modified", true);
-
-            reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
-                Toasty.info(RequestsActivity.this, "User request rejected").show();
-                finish();
-            }).addOnFailureListener(e -> {
-                        accept.setEnabled(true);
-                        progress.setVisibility(View.GONE);
-                        Toasty.error(RequestsActivity.this, "Rejection failed.").show();
-                    }
-            );
+           show();
 
         });
         getRequestDetails();
+    }
+
+
+    public void show() {
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(RequestsActivity.this);
+        builder.setTitle("Request rejection");
+        builder.setMessage("Are you sure you want to reject this request?, please, provide rejection reason for the customer concerns.");
+
+        final EditText input = new EditText(RequestsActivity.this);
+
+        input.setSingleLine(false);
+        input.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+        input.setHint("Write reason");
+        input.setMinLines(1);
+
+        builder.setView(input);
+
+        builder.setPositiveButton("Reject", (dialog, which) -> {
+            String text = input.getText().toString();
+
+            if (text.equals("")) {
+                Toast.makeText(RequestsActivity.this, "Please Enter rejection reason", Toast.LENGTH_SHORT).show();
+            } else {
+
+                reject.setEnabled(false);
+                progress.setVisibility(View.VISIBLE);
+                DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(requestId);
+                Map<String, Object> d = new HashMap<>();
+                d.put("status", "rejected");
+                d.put("reason",text);
+                d.put("modified", true);
+
+                reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
+                    Toasty.info(RequestsActivity.this, "User request rejected").show();
+                    finish();
+                }).addOnFailureListener(e -> {
+                            accept.setEnabled(true);
+                            progress.setVisibility(View.GONE);
+                            Toasty.error(RequestsActivity.this, "Rejection failed.").show();
+                        }
+                );
+
+            }
+
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
     }
 
     void getRequestDetails() {
