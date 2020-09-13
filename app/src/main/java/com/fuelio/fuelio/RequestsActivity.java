@@ -91,7 +91,7 @@ public class RequestsActivity extends AppCompatActivity {
         if(complete){
             reject.setVisibility(View.GONE);
             accept.setBackgroundColor(getResources().getColor(R.color.quantum_googgreen));
-            accept.setText("Complete request");
+            accept.setText("Make report");
         }
 
         if(nothing){
