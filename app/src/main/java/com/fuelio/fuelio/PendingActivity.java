@@ -179,30 +179,16 @@ public class PendingActivity extends AppCompatActivity {
                     dialog.show();
                 });
 
-//                cancel.setOnClickListener(v -> {
-//                    new AlertDialog.Builder(PendingActivity.this)
-//                            .setTitle("Confirm")
-//                            .setMessage("Confirm your journey complete and provide some feedback")
-//                            .setNegativeButton("Cancel", (dialogInterface, i) -> {
-//                                dialogInterface.cancel();
-//                            }).setPositiveButton("Confirm", (dialogInterface, i) -> {
-//
-//                        //cancelling request
-//
-//                        DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(document.getId());
-//                        Map<String, Object> d = new HashMap<>();
-//                        d.put("status", "confirmed");
-//                        d.put("modified", true);
-//
-//                        reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
-//                            Toasty.success(PendingActivity.this, "Journey confirmed, you can give us a feedback later.").show();
-//                            startActivity(new Intent(PendingActivity.this, MainActivity.class));
-//                            finish();
-//
-//                        }).addOnFailureListener(e2 -> Toasty.error(PendingActivity.this, "Confirmation failed.").show());
-//
-//                    }).show();
-//                });
+
+                new AlertDialog.Builder(PendingActivity.this)
+                        .setTitle("Request accepted")
+                        .setMessage((String)documentSnapshot.get("reason"))
+
+                        .setPositiveButton("Sounds good", (dialog, which) -> {
+
+                            dialog.cancel();
+
+                        }).show();
 
 
             } else if (status != null && status.equals("pending")) {
@@ -253,7 +239,7 @@ public class PendingActivity extends AppCompatActivity {
 
                 new AlertDialog.Builder(PendingActivity.this)
                         .setTitle("Request rejected")
-                        .setMessage((String)document.get("reason"))
+                        .setMessage((String)documentSnapshot.get("reason"))
                         .setOnCancelListener(dialog -> {
 
                             startActivity(new Intent(PendingActivity.this, MainActivity.class));

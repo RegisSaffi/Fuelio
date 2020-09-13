@@ -247,14 +247,32 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="10dp"
                 android:textColor="#000"
-                android:text="Description:" />
+                android:text="User description:" />
 
             <TextView
                 android:id="@+id/desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Would you like to accept this request?"
+                android:layout_marginTop="10dp"
+                android:text="..."
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="25dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000"
+                android:text="Provider comment:" />
+
+            <TextView
+                android:id="@+id/desc2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="..."
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="25dp"
                 android:textSize="18sp" />

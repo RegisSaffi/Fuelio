@@ -34,7 +34,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 public class RequestsActivity extends AppCompatActivity {
 
-    TextView distanceTv, timeTv, nameTv, phoneTv, seatsTv, issueTv, descTv,dateTv,costTv,providerTv;
+    TextView distanceTv, timeTv, nameTv, phoneTv, seatsTv, issueTv, descTv,dateTv,costTv,providerTv,desc2Tv;
 
     FancyButton accept, reject;
 
@@ -70,6 +70,7 @@ public class RequestsActivity extends AppCompatActivity {
         descTv = findViewById(R.id.desc);
         dateTv=findViewById(R.id.dateTv);
         timeTv = findViewById(R.id.time);
+        desc2Tv=findViewById(R.id.desc2);
 
         providerTv = findViewById(R.id.provider);
 
@@ -119,11 +120,51 @@ public class RequestsActivity extends AppCompatActivity {
 
         accept.setOnClickListener(v -> {
 
+            if(complete){
+                makeReport();
+            }else {
+                show2();
+            }
+
+        });
+
+        reject.setOnClickListener(v -> {
+
+           show();
+
+        });
+        getRequestDetails();
+    }
+
+
+    public void show2() {
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(RequestsActivity.this);
+        builder.setTitle("Accept request");
+        builder.setMessage("You are about to accept this request, so user will be waiting for the service.");
+
+        final EditText input = new EditText(RequestsActivity.this);
+
+        input.setSingleLine(false);
+        input.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+        input.setHint("Write comment");
+        input.setMinLines(1);
+
+        builder.setView(input);
+
+        builder.setPositiveButton("Accept", (dialog, which) -> {
+            String text = input.getText().toString();
+
+            if (text.equals("")) {
+          text="No comment";
+           }
+
             accept.setEnabled(false);
             progress.setVisibility(View.VISIBLE);
             DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(requestId);
             Map<String, Object> d = new HashMap<>();
             d.put("status", complete?"completed":"accepted");
+            d.put("reason",text);
 
             reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
                 Toasty.success(RequestsActivity.this, complete?"The request was completed":"User request accepted,we'll notify user once you reach in his/her area.").show();
@@ -136,16 +177,13 @@ public class RequestsActivity extends AppCompatActivity {
                     }
             );
 
-        });
-
-        reject.setOnClickListener(v -> {
-
-           show();
 
         });
-        getRequestDetails();
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
     }
-
 
     public void show() {
 
@@ -196,6 +234,54 @@ public class RequestsActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void makeReport() {
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(RequestsActivity.this);
+        builder.setTitle("Make report");
+        builder.setMessage("After service, you might find additional materials were needed for action to complete, or you might need to add other report comment..");
+
+        final EditText input = new EditText(RequestsActivity.this);
+
+        input.setSingleLine(false);
+        input.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+        input.setHint("Write report comment");
+        input.setMinLines(1);
+
+        builder.setView(input);
+
+        builder.setPositiveButton("Make report", (dialog, which) -> {
+            String text = input.getText().toString();
+
+            if (text.equals("")) {
+                text="No report comment";
+            }
+
+            accept.setEnabled(false);
+            progress.setVisibility(View.VISIBLE);
+            DocumentReference reference = FirebaseFirestore.getInstance().collection("requests").document(requestId);
+            Map<String, Object> d = new HashMap<>();
+            d.put("status","completed");
+            d.put("reason",text);
+
+            reference.set(d, SetOptions.merge()).addOnSuccessListener(aVoid -> {
+                Toasty.success(RequestsActivity.this, "The request report was completed").show();
+                finish();
+            }).addOnFailureListener(e -> {
+                        Toasty.error(RequestsActivity.this, "Reporting failed.").show();
+                        accept.setEnabled(true);
+                        progress.setVisibility(View.GONE);
+
+                    }
+            );
+
+
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
     void getRequestDetails() {
         progress.setVisibility(View.VISIBLE);
         call.setEnabled(false);
@@ -215,9 +301,11 @@ public class RequestsActivity extends AppCompatActivity {
             String distance = document.getString("distance");
             String amount = document.getString("amount");
             String duration = document.getString("duration");
+            String reason = document.getString("reason");
 
             String st = document.getString("station_name");
 
+            desc2Tv.setText(reason);
             timeTv.setText(duration);
             nameTv.setText(name);
             phoneTv.setText(phone);

@@ -87,10 +87,12 @@ public class MainActivity extends AppCompatActivity
     boolean animated = false;
     Handler handler;
     Runnable runnable;
-    BottomSheetDialog dialog;
 
     Marker marker;
     private GoogleMap mMap;
+
+    BottomSheetDialog dialog;
+
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -101,8 +103,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> showNewVehicle());
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -218,6 +218,8 @@ public class MainActivity extends AppCompatActivity
                     markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
                     Marker stationMarker = mMap.addMarker(markerOptions);
 
+
+
                 }
 
             }else{
@@ -259,52 +261,6 @@ public class MainActivity extends AppCompatActivity
             dialog.show();
     }
 
-    void showNewVehicle(){
-        dialog=new BottomSheetDialog(MainActivity.this);
-        View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.newvehicle_sheet,null);
-        dialog.setContentView(view);
-
-        TextInputEditText model,plate,color;
-        FancyButton save;
-        save=dialog.findViewById(R.id.save);
-        model=dialog.findViewById(R.id.model);
-        plate=dialog.findViewById(R.id.plate);
-        color=dialog.findViewById(R.id.color);
-
-        save.setOnClickListener(v->{
-
-            if(model.getText().toString().equals("")){
-                Toasty.error(getApplicationContext(),"Enter model name").show();
-            }else if(plate.getText().toString().equals("")){
-                Toasty.error(getApplicationContext(),"Enter plate number").show();
-            }else {
-
-                save.setEnabled(false);
-
-                DocumentReference vRef=FirebaseFirestore.getInstance().collection("vehicles").document();
-
-                Map<String,Object> vMap=new HashMap<>();
-                vMap.put("model",model.getText().toString());
-                vMap.put("plate",plate.getText().toString());
-                vMap.put("color",color.getText().toString());
-                vMap.put("owner",myId);
-
-                vRef.set(vMap).addOnSuccessListener(aVoid -> {
-                    save.setEnabled(true);
-                    Toasty.success(mContext,"Vehicle saved successfully").show();
-                    dialog.cancel();
-                }).addOnFailureListener(e -> {
-                    save.setEnabled(true);
-                    Toasty.error(mContext,"Failed").show();
-                    dialog.cancel();
-                });
-
-            }
-        });
-
-        dialog.show();
-
-    }
 
     @Override
     protected void onPause() {
@@ -472,7 +428,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        mMap.setOnMarkerClickListener(marker -> {
+        mMap.setOnInfoWindowClickListener(marker -> {
 
             marker.hideInfoWindow();
             String name=marker.getTitle();
@@ -483,6 +439,10 @@ public class MainActivity extends AppCompatActivity
             in.putExtra("latitude",latitude);
             in.putExtra("longitude",longitude);
             startActivity(in);
+        });
+        mMap.setOnMarkerClickListener(marker -> {
+
+            marker.showInfoWindow();
 //
             return true;
         });

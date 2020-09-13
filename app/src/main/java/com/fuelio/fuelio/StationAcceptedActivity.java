@@ -47,7 +47,7 @@ public class StationAcceptedActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener(v -> finish());
         }
 
-       toolbar.setTitle("Waiting&Paid requests");
+       toolbar.setTitle("Waiting & Paid requests");
         info = findViewById(R.id.info);
 
         requestCards = new ArrayList<>();

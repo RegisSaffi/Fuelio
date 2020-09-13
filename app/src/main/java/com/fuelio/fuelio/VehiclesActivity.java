@@ -1,5 +1,6 @@
 package com.fuelio.fuelio;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.fuelio.fuelio.adapters.vehicleAdapter;
 import com.fuelio.fuelio.models.userStation;
 import com.fuelio.fuelio.models.vehicle;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -41,6 +43,10 @@ public class VehiclesActivity extends AppCompatActivity {
     vehicleAdapter cardBusAdapter;
     vehicle vehicle;
     List<vehicle> vehicles;
+    BottomSheetDialog dialog;
+
+    Context mContext;
+    String myId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,9 @@ public class VehiclesActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             toolbar.setNavigationOnClickListener(v -> finish());
         }
+
+        mContext=this;
+        myId=new PrefManager(this).getId();
 
         setTitle("");
         info = findViewById(R.id.info);
@@ -73,6 +82,9 @@ public class VehiclesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(cardBusAdapter);
 
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> showNewVehicle());
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
 
@@ -187,5 +199,53 @@ public class VehiclesActivity extends AppCompatActivity {
 
     }
 
+
+    void showNewVehicle(){
+        dialog=new BottomSheetDialog(VehiclesActivity.this);
+        View view= LayoutInflater.from(VehiclesActivity.this).inflate(R.layout.newvehicle_sheet,null);
+        dialog.setContentView(view);
+
+        TextInputEditText model,plate,color;
+        FancyButton save;
+        save=dialog.findViewById(R.id.save);
+        model=dialog.findViewById(R.id.model);
+        plate=dialog.findViewById(R.id.plate);
+        color=dialog.findViewById(R.id.color);
+
+        save.setOnClickListener(v->{
+
+            if(model.getText().toString().equals("")){
+                Toasty.error(getApplicationContext(),"Enter model name").show();
+            }else if(plate.getText().toString().equals("")){
+                Toasty.error(getApplicationContext(),"Enter plate number").show();
+            }else {
+
+                save.setEnabled(false);
+
+                DocumentReference vRef=FirebaseFirestore.getInstance().collection("vehicles").document();
+
+                Map<String,Object> vMap=new HashMap<>();
+                vMap.put("model",model.getText().toString());
+                vMap.put("plate",plate.getText().toString());
+                vMap.put("color",color.getText().toString());
+                vMap.put("owner",myId);
+
+                vRef.set(vMap).addOnSuccessListener(aVoid -> {
+                    save.setEnabled(true);
+                    Toasty.success(mContext,"Vehicle saved successfully").show();
+                    dialog.cancel();
+                    loadfVehicles();
+                }).addOnFailureListener(e -> {
+                    save.setEnabled(true);
+                    Toasty.error(mContext,"Failed").show();
+                    dialog.cancel();
+                });
+
+            }
+        });
+
+        dialog.show();
+
+    }
 
 }
